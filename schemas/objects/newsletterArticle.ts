@@ -15,18 +15,13 @@ export default defineType({
       description: "If not defined, the article's original title will be used.",
     }),
     defineField({
-      name: 'eyebrow',
-      type: 'string',
-      title: 'Eyebrow/Tag',
-    }),
-    defineField({
       name: 'articleReference',
       title: 'Linked Article',
       type: 'reference',
       to: [{ type: articleDocument.name }],
     }),
     defineField({
-      name: 'contenet',
+      name: 'content',
       title: 'Content Override',
       description: "If left blank, the article content will be used.",
       type: 'array',

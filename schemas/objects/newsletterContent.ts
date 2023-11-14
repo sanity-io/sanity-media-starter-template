@@ -12,11 +12,6 @@ export default defineType({
       title: 'Content Title'
     }),
     defineField({
-      name: 'eyebrow',
-      type: 'string',
-      title: 'Eyebrow/Tag',
-    }),
-    defineField({
       name: 'image',
       type: 'image',
       title: 'Image',
@@ -27,7 +22,7 @@ export default defineType({
       title: 'Image Link',
     }),
     defineField({
-      name: 'contenet',
+      name: 'content',
       title: 'Content',
       type: 'array',
       of: [

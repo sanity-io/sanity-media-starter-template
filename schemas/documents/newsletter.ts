@@ -52,6 +52,7 @@ export default defineType({
       name: 'primaryImage',
       title: 'Primary Image',
       type: 'image',
+      description: 'For Web',
     }),
     defineField({
       name: 'content',

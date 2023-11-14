@@ -70,7 +70,7 @@ export default defineType({
       group: 'content',
     }),
     defineField({
-      name: 'contenet',
+      name: 'content',
       title: 'Content',
       type: 'array',
       of: [
