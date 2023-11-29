@@ -13,4 +13,5 @@ Now you can do the following things:
 This project uses [NPM Workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces). To get started:
 
 - `npm install`
-- `npm run dev -w studio` 
+- Run Sanity Studio: `npm run dev -w studio` 
+- Run NextJS site: `npm run dev -w site` 
