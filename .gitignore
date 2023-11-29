@@ -28,4 +28,5 @@ packages/sanity/.sanity
 *.local
 
 .env*
+!.env.example
 .vercel
