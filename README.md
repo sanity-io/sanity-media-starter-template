@@ -7,3 +7,10 @@ Now you can do the following things:
 - [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
 - [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
 - [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+
+## Quick start
+
+This project uses [NPM Workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces). To get started:
+
+- `npm install`
+- `npm run dev -w studio` 
