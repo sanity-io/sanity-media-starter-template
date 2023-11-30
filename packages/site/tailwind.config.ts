@@ -1,4 +1,5 @@
-import type { Config } from 'tailwindcss'
+import type {Config} from 'tailwindcss'
+const {theme} = require('@sanity/demo/tailwind')
 
 const config: Config = {
   content: [
@@ -7,14 +8,14 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
+    ...theme,
+    // Overriding fontFamily to use @next/font loaded families
+    fontFamily: {
+      mono: 'var(--font-mono)',
+      sans: 'var(--font-sans)',
+      serif: 'var(--font-serif)',
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }
 export default config
