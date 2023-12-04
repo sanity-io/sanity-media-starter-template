@@ -1,5 +1,5 @@
 import { defineType, defineField } from 'sanity';
-import { IoPricetagOutline } from 'react-icons/io5'
+import { TagsIcon, TagIcon } from '@sanity/icons'
 
 interface PrepareReturnType {
   title: string;
@@ -9,8 +9,8 @@ interface PrepareReturnType {
 export default defineType({
   type: 'document',
   name: 'tag',
-  title: 'Tag',
-  icon: IoPricetagOutline,
+  title: 'Tags',
+  icon: TagsIcon,
   readOnly: ({ currentUser }) => {
     return !currentUser.roles.find(({ name }) => name === 'administrator');
   },
@@ -28,7 +28,7 @@ export default defineType({
     prepare({ title }): PrepareReturnType {
       return {
         title,
-        media: IoPricetagOutline,
+        media: TagIcon,
       };
     },
   },
