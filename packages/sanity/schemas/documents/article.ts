@@ -2,6 +2,7 @@ import { defineType, defineField } from 'sanity';
 import { ComposeIcon } from '@sanity/icons'
 
 import authorDocument from './author'
+import tagDocument from './tag'
 import { basePortableTextFields } from '../fields';
 
 interface PrepareReturnType {
@@ -39,6 +40,12 @@ export default defineType({
       group: 'content',
     }),
     defineField({
+      name: 'quip',
+      title: 'Quip',
+      type: 'string',
+      group: 'content',
+    }),
+    defineField({
       name: 'og',
       title: 'Open Graph Properties',
       type: 'openGraphProperties',
@@ -67,6 +74,13 @@ export default defineType({
       name: 'publishDate',
       title: 'Publish Date',
       type: 'datetime',
+      group: 'content',
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Tag(s)',
+      type: 'array',
+      of: [{ type: 'reference', to: { type: tagDocument.name } }],
       group: 'content',
     }),
     defineField({
