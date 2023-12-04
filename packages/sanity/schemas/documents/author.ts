@@ -19,6 +19,21 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'jobTitle',
+      title: 'Job Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+    }),
+    defineField({
+      name: 'bio',
+      title: 'Bio',
+      type: 'text',
+    }),
+    defineField({
       name: 'headshot',
       title: 'Head Shot',
       type: 'image'
@@ -32,11 +47,6 @@ export default defineType({
       name: 'linkedin',
       title: 'Linkedin Handle',
       type: 'string',
-    }),
-    defineField({
-      name: 'bio',
-      title: 'Bio',
-      type: 'text',
     }),
   ],
   preview: {
