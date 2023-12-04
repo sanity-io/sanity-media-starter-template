@@ -1,12 +1,20 @@
 import { defineType, defineField } from 'sanity';
 import { basePortableTextFields } from '../fields';
+import { LinkIcon } from '@sanity/icons';
 
 import articleDocument from '../documents/article'
+
+interface PrepareReturnType {
+  title: string;
+  subtitle: string;
+  media: any;
+}
 
 export default defineType({
   name: 'newsletterArticle',
   title: 'Article',
   type: 'object',
+  icon: LinkIcon,
   fields: [
     defineField({
       name: 'title',
@@ -33,4 +41,18 @@ export default defineType({
       ],
     }),
   ],
+  preview: {
+    select: {
+      articleTitle: 'articleReference.title',
+      titleOverride: 'title',
+      image: 'articleReference.coverImage',
+    },
+    prepare({ articleTitle, titleOverride, image }): PrepareReturnType {
+      return {
+        title: articleTitle ?? titleOverride,
+        subtitle: 'Article Reference',
+        media: image,
+      };
+    },
+  },
 });

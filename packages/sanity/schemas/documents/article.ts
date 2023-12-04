@@ -1,5 +1,5 @@
 import { defineType, defineField } from 'sanity';
-import { ComposeIcon } from '@sanity/icons'
+import { DocumentsIcon } from '@sanity/icons'
 
 import authorDocument from './author'
 import { basePortableTextFields } from '../fields';
@@ -14,7 +14,7 @@ export default defineType({
   type: 'document',
   name: 'article',
   title: 'Articles',
-  icon: ComposeIcon,
+  icon: DocumentsIcon,
   groups: [
     {
       name: 'content',

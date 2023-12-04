@@ -62,6 +62,7 @@ export default defineType({
         modal: 'dialog',
       },
       of: [
+        { type: 'newsletterIntro' },
         { type: 'newsletterArticle' },
         { type: 'newsletterContent' },
       ],
