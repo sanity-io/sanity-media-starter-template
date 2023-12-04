@@ -10,7 +10,7 @@ const DATASET = process.env.SANITY_STUDIO_DATASET
 
 export default defineConfig({
   name: 'default',
-  title: 'Media Template',
+  title: 'Media Starter',
 
   projectId: PROJECT_ID,
   dataset: DATASET,
