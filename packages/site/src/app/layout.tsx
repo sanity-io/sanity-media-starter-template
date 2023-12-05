@@ -1,6 +1,11 @@
 import {Footer} from '@/components/Footer'
 import {Header} from '@/components/Header'
 import type {Metadata} from 'next'
+import dynamic from 'next/dynamic'
+import {draftMode} from 'next/headers'
+
+const VisualEditing = dynamic(() => import('@/sanity/VisualEditing'))
+
 import './globals.css'
 
 import {Inter, PT_Serif} from 'next/font/google'
@@ -24,10 +29,11 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`}>
-      <body className='font-sans'>
+      <body className="font-sans">
         <Header />
         {children}
         <Footer />
+        {draftMode().isEnabled && <VisualEditing />}
       </body>
     </html>
   )
