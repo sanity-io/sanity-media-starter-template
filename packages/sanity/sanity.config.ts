@@ -8,6 +8,7 @@ import {presentationTool} from 'sanity/presentation'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
+const SITE_ORIGIN = process.env.SITE_PUBLIC_BASE_URL
 
 export default defineConfig({
   name: 'default',
@@ -24,7 +25,7 @@ export default defineConfig({
     media(),
     presentationTool({
       previewUrl: {
-        origin: 'http://localhost:3000',
+        origin: SITE_ORIGIN,
         draftMode: {
           enable: '/api/draft',
         },
