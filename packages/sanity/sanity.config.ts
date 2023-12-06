@@ -5,6 +5,7 @@ import {schemaTypes} from './schemas'
 import {media} from 'sanity-plugin-media'
 import structure from './src/structure'
 import {presentationTool} from 'sanity/presentation'
+import CopyHTMLToClipboard from './src/actions/copyHTMLToClipboard'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -32,8 +33,10 @@ export default defineConfig({
       },
     }),
   ],
-
   schema: {
     types: schemaTypes,
+  },
+  document: {
+    actions: [CopyHTMLToClipboard],
   },
 })

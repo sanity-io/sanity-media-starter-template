@@ -1,6 +1,5 @@
 import { defineType, defineField } from 'sanity';
 import { DocumentsIcon } from '@sanity/icons'
-
 import authorDocument from './author'
 import tagDocument from './tag'
 import { basePortableTextFields } from '../fields';
