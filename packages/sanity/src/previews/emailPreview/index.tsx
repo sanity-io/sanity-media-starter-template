@@ -3,7 +3,7 @@ import { Card } from '@sanity/ui';
 import { SanityDocument } from 'sanity';
 import Email from '../../components/email';
 
-const NewsletterPreview = ({ document }: { document: SanityDocument }) => {
+const EmailPreview = ({ document }: { document: SanityDocument }) => {
   if (!document.displayed) { return null; }
 
   return (
@@ -13,4 +13,4 @@ const NewsletterPreview = ({ document }: { document: SanityDocument }) => {
   );
 };
 
-export default NewsletterPreview;
+export default EmailPreview;

@@ -1,5 +1,5 @@
 import { StructureBuilder } from 'sanity/desk';
-import NewsletterPreview from '../previews/newsletterPreview';
+import EmailPreview from '../previews/emailPreview';
 import { IoNewspaperOutline } from 'react-icons/io5'
 import { EditIcon, EyeOpenIcon } from '@sanity/icons'
 
@@ -33,7 +33,7 @@ const structure = (S: StructureBuilder) =>
                 .views([
                   S.view.form()
                     .icon(EditIcon),
-                  S.view.component(NewsletterPreview)
+                  S.view.component(EmailPreview)
                     .title('Preview')
                     .icon(EyeOpenIcon)
                 ])
