@@ -1,10 +1,18 @@
 import { defineType, defineField } from 'sanity';
 import { basePortableTextFields } from '../fields';
+import { DocumentTextIcon } from '@sanity/icons';
+
+interface PrepareReturnType {
+  title: string;
+  subtitle: string;
+  media: any;
+}
 
 export default defineType({
   name: 'newsletterContent',
-  title: 'Generic Content',
+  title: 'Newsletter Exclusive Content',
   type: 'object',
+  icon: DocumentTextIcon,
   fields: [
     defineField({
       name: 'title',
@@ -33,4 +41,17 @@ export default defineType({
       ],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      image: 'image',
+    },
+    prepare({ title, image }): PrepareReturnType {
+      return {
+        title: title,
+        subtitle: 'Newsletter Exclusive Content',
+        media: image,
+      };
+    },
+  },
 });
