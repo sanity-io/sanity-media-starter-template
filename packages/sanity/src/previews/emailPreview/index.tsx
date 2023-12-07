@@ -18,7 +18,6 @@ const EmailPreview = (
 
   useEffect(() => {
     fetchContent(displayed).then((result) => {
-      console.log(documentResolver(result))
       setNewsletterContent(documentResolver(result))
     })
   }, [document]);

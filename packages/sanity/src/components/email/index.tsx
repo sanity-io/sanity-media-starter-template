@@ -26,7 +26,7 @@ import {
 export const ImageComponent = ({ value }: Image) => {
   return (
     <Img
-      src={imgBuilder.image(value).fit('max').url()}
+      src={imgBuilder.image(value).width(600).url()}
       alt={value.alt || ''}
       style={{
         display: 'block',
@@ -37,6 +37,12 @@ export const ImageComponent = ({ value }: Image) => {
 }
 
 const emailComponents = {
+  block: {
+    normal: ({children}) => <Text style={paragraph}>{children}</Text>,
+  },
+  listItem: {
+    bullet: ({children}) => <li style={paragraph}>{children}</li>,
+  },
   types: {
     image: ImageComponent,
   },
