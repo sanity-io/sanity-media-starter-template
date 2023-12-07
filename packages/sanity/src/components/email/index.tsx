@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { PortableText } from '@portabletext/react';
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
-
 import { NewsletterLogo } from './logo';
+
+import type {EmailDocument} from '../../types'
+import { imgBuilder } from '../../imageBuilder'
+import type {Image} from 'sanity'
 
 import {
   Body,
@@ -20,26 +23,34 @@ import {
   Hr,
 } from '@react-email/components';
 
-interface EmailProps {
-  document: {
-    previewText: string;
-    content: Array<{
-      _key: string;
-      title?: string;
-      content: any;
-    }>;
-  };
-};
+export const ImageComponent = ({ value }: Image) => {
+  return (
+    <Img
+      src={imgBuilder.image(value).fit('max').url()}
+      alt={value.alt || ''}
+      style={{
+        display: 'block',
+        margin: '0 auto',
+      }}
+    />
+  )
+}
 
-const Email = ({ document }: EmailProps) => {
-  const { previewText, content } = document;
-  console.log(previewText)
+const emailComponents = {
+  types: {
+    image: ImageComponent,
+  },
+}
+
+const Email = ({ document } : EmailDocument) => {
+  const { previewText, authors, content } = document;
+
   return (
     <Html lang='en'>
       <Head />
       <Preview>{previewText}</Preview>
       <Body style={main}>
-        <Container style={container}>
+        <Container>
           {/* Static header */}
           <Section style={logo}>
             <NewsletterLogo/>
@@ -53,18 +64,32 @@ const Email = ({ document }: EmailProps) => {
             </Row>
           </Section>
           {/* Content sections */}
-          {content && content.map(({_key, title, content}, index) => (
-            <Section key={_key} style={section}>
-              {title && <Text style={heading}>{title}</Text>}
-              <Text style={paragraph}>
-                <PortableText value={content} />
-              </Text>
-              {index !== content.length - 1 && <Hr style={hr} />}
-            </Section>
+          {content && content.map(({_key, title, image, imageLink, content}, index) => (
+            _key && content ? (
+              <Section key={_key} style={section}>
+                {title && <Text style={heading}>{title}</Text>}
+                {image && <Link href={imageLink}><ImageComponent value={image}/></Link>}
+                <Text style={paragraph}>
+                  <PortableText value={content} components={emailComponents} />
+                </Text>
+                {index < content.length - 1 && <Hr style={hr} />}
+              </Section>
+            ) : null
           ))}
         </Container>
         {/* Static footer */}
         <Section style={footer}>
+          <Row style={{ textAlign: 'center' }}>
+            <Text>Written by:
+              {
+                authors && authors.length > 0 
+                  ? authors.map(({ name, twitter }, index) => (
+                      <Link href={twitter}> {name}{index < authors.length - 1 ? ',' : ''}</Link>
+                    ))
+                  : <Link href="https://www.youtube.com/watch?v=xvFZjo5PgG0"> Rick Astley</Link>
+              }
+            </Text>
+          </Row>
           <Row>
             <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
               <FaXTwitter />
@@ -74,7 +99,7 @@ const Email = ({ document }: EmailProps) => {
             </Column>
           </Row>
           <Text style={{ textAlign: 'center', color: '#706a7b' }}>
-            © 2023 Sanity Media Starter, All Rights Reserved <br />
+            © {new Date().getFullYear()} Sanity Media Starter, All Rights Reserved <br />
             351 California St, San Francisco, CA 94104, USA
           </Text>
         </Section>
@@ -86,29 +111,26 @@ const Email = ({ document }: EmailProps) => {
 const fontFamily = 'HelveticaNeue,Helvetica,Arial,sans-serif';
 
 const main = {
-  backgroundColor: '#efeef1',
+  backgroundColor: 'white',
   color: 'black',
   fontFamily,
+  maxWidth: 670,
+  margin: '0 auto',
 };
 
 const paragraph = {
   lineHeight: 1.5,
-  fontSize: 14,
-};
-
-const container = {
-  width: '580px',
-  margin: '30px auto',
-  backgroundColor: '#ffffff',
+  fontSize: 16,
 };
 
 const footer = {
-  width: '580px',
+  backgroundColor: '#efeef1',
   margin: '0 auto',
+  padding: '15px 0 0',
 };
 
 const section = {
-  padding: '5px 50px 10px 60px',
+  padding: '5px 0 10px',
 };
 
 const logo = {
@@ -120,17 +142,14 @@ const logo = {
 
 const sectionsBorders = {
   width: '100%',
-  display: 'flex',
 };
 
 const sectionBorder = {
   borderBottom: '1px solid #eeeeee',
-  width: '249px',
 };
 
 const sectionCenter = {
   borderBottom: '1px solid #9147ff',
-  width: '102px',
 };
 
 const link = {
@@ -138,7 +157,7 @@ const link = {
 };
 
 const heading = {
-  fontSize: '14px',
+  fontSize: 20,
   fontWeight: '700',
   color: '#9147ff',
   margin: 0,

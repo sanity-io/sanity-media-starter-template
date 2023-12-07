@@ -17,7 +17,7 @@ export default defineType({
   icon: LinkIcon,
   fields: [
     defineField({
-      name: 'title',
+      name: 'titleOverride',
       type: 'string',
       title: 'Article Title Override',
       description: "If not defined, the article's original title will be used.",
@@ -29,7 +29,7 @@ export default defineType({
       to: [{ type: articleDocument.name }],
     }),
     defineField({
-      name: 'content',
+      name: 'contentOverride',
       title: 'Content Override',
       description: "If left blank, the article content will be used.",
       type: 'array',
@@ -43,15 +43,15 @@ export default defineType({
   ],
   preview: {
     select: {
-      articleTitle: 'articleReference.title',
-      titleOverride: 'title',
+      articleTitle: 'articleReference.headline',
+      titleOverride: 'overrideTitle',
       image: 'articleReference.coverImage',
     },
     prepare({ articleTitle, titleOverride, image }): PrepareReturnType {
       return {
-        title: articleTitle ?? titleOverride,
+        title: titleOverride ?? articleTitle,
         subtitle: 'Article Reference',
-        media: image,
+        media: image ?? LinkIcon,
       };
     },
   },
