@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { PortableText } from '@portabletext/react';
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
-import { NewsletterLogo } from './logo';
 
 import type {EmailDocument} from '../../types'
 import { imgBuilder } from '../../imageBuilder'
@@ -48,6 +47,9 @@ const emailComponents = {
   },
 }
 
+/** TODO: Use site/newsletter settings **/
+const Logo = "https://cdn.sanity.io/images/mqtqzjcc/production/df4107b3ffa7b75f10482a50c5874bb83415ca54-600x300.png?w=300"
+
 const Email = ({ document } : EmailDocument) => {
   const { previewText, authors, content } = document;
 
@@ -59,7 +61,7 @@ const Email = ({ document } : EmailDocument) => {
         <Container>
           {/* Static header */}
           <Section style={logo}>
-            <NewsletterLogo/>
+            <Img style={{margin: '0 auto'}}src={Logo}/>
           </Section>
           {/* Styled header bottom border */}
           <Section style={sectionsBorders}>
@@ -95,14 +97,6 @@ const Email = ({ document } : EmailDocument) => {
                   : <Link href="https://www.youtube.com/watch?v=xvFZjo5PgG0"> Rick Astley</Link>
               }
             </Text>
-          </Row>
-          <Row>
-            <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
-              <FaXTwitter />
-            </Column>
-            <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
-              <FaLinkedin />
-            </Column>
           </Row>
           <Text style={{ textAlign: 'center', color: '#706a7b' }}>
             © {new Date().getFullYear()} Sanity Media Starter, All Rights Reserved <br />
@@ -140,10 +134,7 @@ const section = {
 };
 
 const logo = {
-  display: 'flex',
-  justifyContent: 'center',
-  alingItems: 'center',
-  padding: 30,
+  padding: '30px 0 10px',
 };
 
 const sectionsBorders = {
