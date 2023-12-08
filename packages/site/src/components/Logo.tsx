@@ -1,8 +1,9 @@
 type Props = {
   className?: string
+  width?: number
 }
 
-export const Logo = ({className}: Props) => {
+export const Logo = ({className, width}: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,6 +14,7 @@ export const Logo = ({className}: Props) => {
       viewBox="0 0 1297 210"
       fill="currentColor"
       className={className}
+      width={width}
     >
       <path
         fillRule="nonzero"
