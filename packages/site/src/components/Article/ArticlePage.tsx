@@ -14,10 +14,10 @@ export const Article = ({data, encodeDataAttribute}: PageProps) => {
 
   return (
     <article className="prose dark:prose-invert font-serif mx-auto">
-      <h2 className="font-sans text-xl" data-sanity={encodeDataAttribute?.('headline') ?? 'test'}>
+      <h1 className="font-title font-bold text-5xl" data-sanity={encodeDataAttribute?.('headline') ?? 'test'}>
         {headline}
-      </h2>
-      <p className="font-sans text-lg" data-sanity={encodeDataAttribute?.('subHeadline')}>
+      </h1>
+      <p className="text-lg" data-sanity={encodeDataAttribute?.('subHeadline')}>
         {subHeadline}
       </p>
       <SanityImage
