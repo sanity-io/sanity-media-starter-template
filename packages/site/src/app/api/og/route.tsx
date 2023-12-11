@@ -17,6 +17,11 @@ export async function GET(req: Request) {
     new URL('../../../../public/assets/Agdasima-Bold.ttf', import.meta.url)
   ).then((res) => res.arrayBuffer())
 
+  /**
+   * DANGER: This isn't safe to use in production.
+   * Instead parameters should be encrypted. Please see:
+   * https://vercel.com/docs/functions/edge-functions/og-image-generation/og-image-examples#encrypting-parameters
+   */
   const {searchParams} = new URL(req.url)
 
   const hasTitleParam = searchParams.has('title')
