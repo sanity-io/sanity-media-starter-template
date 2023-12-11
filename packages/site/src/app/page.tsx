@@ -1,3 +1,4 @@
+import { Header } from '@/components/Header'
 import {HomePage} from '@/components/Home/HomePage'
 import HomePagePreview from '@/components/Home/HomePagePreview'
 import {loadHomePage} from '@/sanity/loader/loadQuery'
@@ -14,6 +15,8 @@ export default async function Home() {
 
   return (
     <>
+      <Header />
+
       <div className="mt-4 px-4 md:px-16 lg:px-32">
         <ul className="flex gap-4 justify-center py-2 border-y text-sm font-light tracking-wider">
           <li>Category</li>
@@ -23,7 +26,7 @@ export default async function Home() {
         </ul>
       </div>
 
-      <main className="px-4 md:px-16 lg:px-32 py-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+      <main className="px-4 md:px-16 lg:px-32 py-5">
         {draftMode().isEnabled ? (
           <HomePagePreview
             params={{

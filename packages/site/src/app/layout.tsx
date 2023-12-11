@@ -1,5 +1,4 @@
 import {Footer} from '@/components/Footer'
-import {Header} from '@/components/Header'
 import type {Metadata} from 'next'
 import dynamic from 'next/dynamic'
 import {draftMode} from 'next/headers'
@@ -47,7 +46,6 @@ export default function RootLayout({children}: {children: ReactNode}) {
   return (
     <html lang="en" className={`${title.variable}`}>
       <body className="font-serif">
-        <Header />
         {children}
         <Footer />
         {draftMode().isEnabled && <VisualEditing />}
