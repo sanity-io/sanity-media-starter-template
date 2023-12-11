@@ -13,4 +13,9 @@ export type ArticlePayload = {
   slug: string
   subHeadline: string
   tags: string[]
+  og?: {
+    title?: string
+    description?: string
+    image?: Image
+  }
 }

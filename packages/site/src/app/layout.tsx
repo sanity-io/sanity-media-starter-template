@@ -16,8 +16,31 @@ const title = Agdasima({
   weight: ['400', '700'],
 })
 
+const getSiteUrl = () => {
+  /*
+   * Vercel sets this automatically but does not include
+   *  the protocol (`https://`), so we need to add it manually.
+   */
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+
+  return process.env.NEXT_PUBLIC_SITE_BASE_URL || 'http://localhost:3000'
+}
+
 export const metadata: Metadata = {
   title: 'Sanity Media Starter Template',
+  metadataBase: new URL(getSiteUrl()),
+  openGraph: {
+    title: 'Sanity Media Starter Template',
+    images: [
+      {
+        url: '/api/og',
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 }
 
 export default function RootLayout({children}: {children: ReactNode}) {
