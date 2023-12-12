@@ -1,5 +1,5 @@
 import type {Config} from 'tailwindcss'
-const {theme} = require('@sanity/demo/tailwind')
+import {theme} from '@sanity/demo/tailwind'
 
 const config: Config = {
   content: [
@@ -9,11 +9,15 @@ const config: Config = {
   ],
   theme: {
     ...theme,
+    colors: {
+      ...theme.colors,
+      brand: '#ec5c52',
+    },
     // Overriding fontFamily to use @next/font loaded families
     fontFamily: {
-      mono: 'var(--font-mono)',
-      sans: 'var(--font-sans)',
-      serif: 'var(--font-serif)',
+      title: 'var(--font-title)',
+      sans: 'Helvetica, Arial, sans-serif;',
+      serif: 'Georgia,Times,Times New Roman,serif',
     },
   },
   plugins: [require('@tailwindcss/typography')],

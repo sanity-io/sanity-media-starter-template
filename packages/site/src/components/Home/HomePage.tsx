@@ -7,12 +7,14 @@ const ArticleCard = ({
   className,
   article,
   encodeDataAttribute,
+  isFeatured,
 }: {
   article: HomePagePayload[number]
   className?: string
   encodeDataAttribute?: EncodeDataAttributeCallback
+  isFeatured: boolean
 }) => (
-  <section className={className}>
+  <section className={`${className} ${isFeatured ? 'col-span-2 row-span-2' : ''}`}>
     <Link
       href={`/${article.slug}`}
       className="flex flex-col gap-2"
@@ -20,12 +22,14 @@ const ArticleCard = ({
     >
       <SanityImage image={article.coverImage} data-sanity={encodeDataAttribute?.('coverImage')} />
       <h2
-        className="font-sans text-2xl tracking-wide"
+        className={`font-title tracking-wide text-center leading-tight ${
+          isFeatured ? 'col-span-2 row-span-2 text-3xl' : 'text-2xl'
+        }`}
         data-sanity={encodeDataAttribute?.('headline')}
       >
         {article.headline}
       </h2>
-      <p className="font-serif font-normal" data-sanity={encodeDataAttribute?.('subHeadline')}>
+      <p className="font-serif font-normal text-center" data-sanity={encodeDataAttribute?.('subHeadline')}>
         {article.subHeadline}
       </p>
     </Link>
@@ -39,12 +43,13 @@ export interface PageProps {
 
 export const HomePage = ({data, encodeDataAttribute}: PageProps) => {
   return (
-    <main>
-      {data?.map((article) => (
+    <main className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 grid-rows-2">
+      {data?.map((article, idx) => (
         <ArticleCard
           key={article._id}
           article={article}
           encodeDataAttribute={encodeDataAttribute}
+          isFeatured={idx === 0}
         />
       ))}
     </main>
