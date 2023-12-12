@@ -1,7 +1,7 @@
 /**
  * When attempting to preview OG images locally you will encounter CORS errors
  * due to mismatch between the Next.js dev server and Sanity Studio's dev server.
- * 
+ *
  * To work around this, you can temporarily disable CORS in Chrome by running:
  * open -n -a Chromium --args --user-data-dir="/tmp/chrome_dev_session" --disable-web-security
  */
@@ -93,8 +93,8 @@ const OpenGraphPreview = ({document}: Props) => {
   if (loadState === 'INITIAL' || loadState === 'LOADING') {
     return (
       <Card padding={4}>
-        <Flex justify="center">
-          <Spinner muted /> Loading...
+        <Flex justify="center" gap={3} align="center">
+          <Spinner muted /> <span>Loading...</span>
         </Flex>
       </Card>
     )
