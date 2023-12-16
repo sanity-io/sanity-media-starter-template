@@ -1,0 +1,21 @@
+{
+  "name": "migrate",
+  "version": "1.0.0",
+  "description": "Content mapping utilities between various sources to Sanity content schema",
+  "main": "./src/index.ts",
+  "scripts": {
+    "import": "bun run src/index.ts import",
+    "export": "bun run src/index.ts write"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "bun-types": "latest",
+    "jsdom": "^23.0.1",
+    "json-nd": "^1.0.0",
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
+  },
+  "dependencies": {
+    "studio": "^1.0.0"
+  }
+}

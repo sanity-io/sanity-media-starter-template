@@ -11,6 +11,18 @@ const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
 const SITE_ORIGIN = process.env.SANITY_STUDIO_SITE_PUBLIC_BASE_URL
 
+if (!PROJECT_ID) {
+  throw new Error('Missing env SANITY_STUDIO_PROJECT_ID')
+}
+
+if (!DATASET) {
+  throw new Error('Missing env SANITY_STUDIO_DATASET')
+}
+
+if (!SITE_ORIGIN) {
+  throw new Error('Missing env SANITY_STUDIO_SITE_PUBLIC_BASE_URL')
+}
+
 export default defineConfig({
   name: 'default',
   title: 'Media Starter',
