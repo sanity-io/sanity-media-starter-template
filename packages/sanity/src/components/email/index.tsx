@@ -92,7 +92,9 @@ const Email = ({ document } : EmailDocument) => {
               {
                 authors && authors.length > 0 
                   ? authors.map(({ name, twitter }, index) => (
-                      <Link href={twitter}> {name}{index < authors.length - 1 ? ',' : ''}</Link>
+                      <Link key={name} href={twitter}>
+                        {name}{index < authors.length - 1 ? ',' : ''}
+                      </Link>
                     ))
                   : <Link href="https://www.youtube.com/watch?v=xvFZjo5PgG0"> Rick Astley</Link>
               }
