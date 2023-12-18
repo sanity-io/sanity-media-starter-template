@@ -44,7 +44,7 @@ export default defineType({
   preview: {
     select: {
       articleTitle: 'articleReference.headline',
-      titleOverride: 'overrideTitle',
+      titleOverride: 'titleOverride',
       image: 'articleReference.coverImage',
     },
     prepare({ articleTitle, titleOverride, image }): PrepareReturnType {
