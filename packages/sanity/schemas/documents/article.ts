@@ -97,7 +97,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'title',
+      title: 'headline',
       publishDate: 'publishDate',
       image: 'coverImage',
     },
