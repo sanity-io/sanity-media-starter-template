@@ -1,6 +1,7 @@
 import {
   DocumentActionComponent,
   DocumentActionProps,
+  SanityDocument,
 } from 'sanity';
 
 import { useToast } from '@sanity/ui';
@@ -21,22 +22,29 @@ const CopyHTMLToClipboard: DocumentActionComponent = (
 
   const handler = async () => {
     try {
-      const document = draft || published
-      const result = await sanityClient.fetch(getEmailContent(document._id));
-      const html = render(Email({ document: documentResolver(result) }), { pretty: true });
+      const document: SanityDocument | null = draft || published
+      if (document) {
+        const result = await sanityClient.fetch(getEmailContent(document._id));
+        const html = render(Email({ document: documentResolver(result) }), { pretty: true });
 
-      try {
-        await navigator.clipboard.writeText(html);
-        toast.push({
-          title: 'Copied HTML to clipboard.',
-          status: 'success',
-        });
-      } catch (error) {
-        toast.push({
-          title: 'Something went wrong, could not copy to clipboard.',
-          description: error.message,
-          status: 'error',
-        });
+        try {
+          await navigator.clipboard.writeText(html);
+          toast.push({
+            title: 'Copied HTML to clipboard.',
+            status: 'success',
+          });
+        } catch (error) {
+          let errorMessage = 'An unknown error occurred';
+          if (error instanceof Error) {
+            errorMessage = error.message;
+          }
+
+          toast.push({
+            title: 'Something went wrong, could not copy to clipboard.',
+            description: errorMessage,
+            status: 'error',
+          });
+        }
       }
     } catch (error) {
       console.error('Error fetching and rendering email content:', error);

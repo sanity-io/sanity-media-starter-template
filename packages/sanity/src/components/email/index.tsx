@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { PortableText } from '@portabletext/react';
+import { PortableText, PortableTextComponents } from '@portabletext/react';
+
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 
@@ -22,7 +23,11 @@ import {
   Hr,
 } from '@react-email/components';
 
-export const ImageComponent = ({ value }: Image) => {
+interface ImageComponentProps {
+  value: Image;
+}
+
+export const ImageComponent = ({ value }: ImageComponentProps) => {
   return (
     <Img
       src={imgBuilder.image(value).width(600).url()}
@@ -35,7 +40,7 @@ export const ImageComponent = ({ value }: Image) => {
   )
 }
 
-const emailComponents = {
+const emailComponents: PortableTextComponents = {
   block: {
     normal: ({children}) => <Text style={paragraph}>{children}</Text>,
   },
@@ -50,7 +55,11 @@ const emailComponents = {
 /** TODO: Use site/newsletter settings **/
 const Logo = "https://cdn.sanity.io/images/mqtqzjcc/production/df4107b3ffa7b75f10482a50c5874bb83415ca54-600x300.png?w=300"
 
-const Email = ({ document } : EmailDocument) => {
+interface EmailProps {
+  document: EmailDocument;
+}
+
+const Email = ({ document }: EmailProps) => {
   const { previewText, authors, content } = document;
 
   return (

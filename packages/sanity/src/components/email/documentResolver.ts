@@ -1,18 +1,23 @@
-const buildImageLinkFromSlug = (slug: string) => {
+import type {EmailDocument} from '../../types'
+
+const buildImageLinkFromSlug = (slug: string): string | undefined => {
   if (!slug) return;
   const formattedSlug = slug.startsWith('/') ? slug : `/${slug}`
   return new URL(formattedSlug, process.env.SANITY_STUDIO_SITE_PUBLIC_BASE_URL).toString();
 }
 
-export const documentResolver = (document: any) => {
-  document.content.map(item => {
+export const documentResolver = (document: EmailDocument): EmailDocument => {
+  const resolvedContent = document.content.map((item: ContentItem) => {
     if (item._type === 'newsletterArticle') {
-      item['title'] = item?.titleOverride || item.title
-      item['content'] = item?.contentOverride || item.content
-      item['imageLink'] = buildImageLinkFromSlug(item?.slug)
+      return {
+        ...item,
+        title: item.titleOverride || item.title,
+        content: item.contentOverride || item.content,
+        imageLink: buildImageLinkFromSlug(item.slug)
+      };
     }
     return item;
   });
 
-  return document;
+  return { ...document, content: resolvedContent };
 }

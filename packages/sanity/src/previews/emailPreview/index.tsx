@@ -5,16 +5,17 @@ import Email from '../../components/email';
 import { sanityClient } from '../../sanityClient'
 import { getEmailContent } from '../../queries'
 import { documentResolver } from '../../components/email/documentResolver'
+import type { EmailDocument } from '../../types'
 
-const fetchContent = async (document: SanityDocument) => {
+const fetchContent = async (document: SanityDocument): Promise<EmailDocument> => {
   return await sanityClient.fetch(getEmailContent(document._id));
 };
 
 const EmailPreview = (
-  { document }: { document: SanityDocument }
+  { document }: { document: EmailDocument }
 ) => {
-  const { displayed } = document
-  const [newsletterContent, setNewsletterContent] = useState('');
+  const { displayed }: SanityDocument = document
+  const [newsletterContent, setNewsletterContent] = useState<EmailDocument | null>()
 
   useEffect(() => {
     fetchContent(displayed).then((result) => {
