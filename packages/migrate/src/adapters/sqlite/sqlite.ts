@@ -44,7 +44,7 @@ export const actions = (db: Database): DataAdapter => {
         author.email,
         author.jobTitle,
         author.bio,
-        author.headshot,
+        author.headshot?._sanityAsset ?? null,
         author.twitter,
         author.linkedin,
       )

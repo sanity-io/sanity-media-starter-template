@@ -20,7 +20,9 @@ export const parseArticleContent = async ({
     throw new Error(`No JSON Schema found`)
   }
 
-  const coverImage = JSONSchema.image?.url
+  const coverImage =
+    JSONSchema.image?.url ||
+    doc.querySelector(process.env.SELECTOR_COVER_IMAGE)?.getAttribute('src')
   const title = JSONSchema.headline
   const subHeadline = doc.querySelector(process.env.SELECTOR_SUBTITLE)?.textContent ?? ''
   const publishDate = JSONSchema?.datePublished
@@ -36,6 +38,9 @@ export const parseArticleContent = async ({
       .replace(/^-/, '')
       .replace('author', '')
 
+    const headshot: string | null =
+      data.image ?? doc.querySelector(`${process.env.SELECTOR_AUTHOR} img`)?.getAttribute('src')
+
     authors.push({
       _id: `author_${authorID}`,
       _type: 'author',
@@ -43,8 +48,13 @@ export const parseArticleContent = async ({
       jobTitle: data.jobTitle,
       bio: data.description,
       email: data.email,
+      headshot: headshot
+        ? {
+            _type: 'image',
+            _sanityAsset: `image@${headshot}`,
+          }
+        : null,
       // TODO: Handle extracting these using CSS selectors
-      headshot: null,
       twitter: null,
       linkedin: null,
     })
