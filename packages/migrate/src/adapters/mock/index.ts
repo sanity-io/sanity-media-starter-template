@@ -59,7 +59,7 @@ const makeArticle = (): Article => ({
 })
 
 export const fakeArticles = async (count: number) => {
-  console.log(`✨ generating ${count} articles`)
+  console.log(`✨ Generating ${count} articles`)
   const allArticles: ArticleDereferenced[] = []
   const allAuthors: Author[] = []
 
