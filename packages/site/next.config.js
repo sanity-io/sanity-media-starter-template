@@ -6,6 +6,16 @@ const nextConfig = {
   experimental: {
     taint: true,
   },
+
+  async headers() {
+    return [
+      {
+        // Allow generating Open Graph images when running Sanity Studio locally
+        source: '/api/og',
+        headers: [{key: 'Access-Control-Allow-Origin', value: '*'}],
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
