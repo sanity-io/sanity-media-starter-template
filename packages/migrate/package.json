@@ -5,10 +5,13 @@
   "main": "./src/index.ts",
   "scripts": {
     "import": "bun run src/index.ts import",
-    "export": "bun run src/index.ts write"
+    "export": "bun run src/index.ts write",
+    "fake": "bun run src/index.ts fake"
   },
   "license": "UNLICENSED",
   "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "@thalesrc/js-utils": "^2.12.0",
     "bun-types": "latest",
     "jsdom": "^23.0.1",
     "json-nd": "^1.0.0",

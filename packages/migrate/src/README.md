@@ -65,3 +65,21 @@ Currently there are only two adapters defined:
 - Input: HTML from public websites
 - Data storage: SQLite
 - Output: ND-JSON
+
+## Placeholder articles
+
+You can generate any number of fake articles for import by running the following command.
+
+```sh
+npm run fake 2000 -w migrate
+```
+
+This will generate the specified number of articles and write them to a ND-JSON file on your computer.
+The content is generated using [Faker.js](https://fakerjs.dev) so won't be actual
+articles, however it will conform to the expected schema.
+
+To import into your Sanity project:
+- navigate to the folder containing your Sanity configuration
+- run `npx sanity dataset ../packages/migrate/data/db.ndjson production`
+
+Note that you may need to update the path to the ND-JSON file depending on your project setup.

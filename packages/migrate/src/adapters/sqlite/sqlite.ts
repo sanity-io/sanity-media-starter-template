@@ -4,7 +4,7 @@ import {Author} from '../../blocks/author'
 import {join} from 'node:path'
 import {Article, ArticleDereferenced, SourceArticle} from '../../blocks/article'
 import {DataAdapter} from '..'
-import {article, author} from 'studio/schemas/documents'
+import {compact} from '@thalesrc/js-utils/object'
 
 export const actions = (db: Database): DataAdapter => {
   const addSourceArticle = db.prepare<void, [string, string, string | null]>(`
@@ -74,17 +74,12 @@ export const actions = (db: Database): DataAdapter => {
   const exportData = async () => {
     const articles = await getArticles.all().map(({content}) => JSON.parse(content))
     const authors = await getAuthors.all().map(({id, ...author}) => {
-      const a = {
+      // Delete null-ish values
+      return compact({
         ...author,
         _type: 'author',
         _id: id,
-      }
-
-      // Delete null values
-      // @ts-expect-error
-      Object.keys(a).forEach((key) => a[key] == null && delete a[key])
-
-      return a
+      })
     })
 
     if (!articles) {
