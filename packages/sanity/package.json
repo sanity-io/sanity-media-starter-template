@@ -9,11 +9,10 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy"
+    "deploy-graphql": "sanity graphql deploy",
+    "setup:token": "sanity manage"
   },
-  "keywords": [
-    "sanity"
-  ],
+  "keywords": ["sanity"],
   "dependencies": {
     "@portabletext/react": "^3.0.11",
     "@react-email/components": "^0.0.11",

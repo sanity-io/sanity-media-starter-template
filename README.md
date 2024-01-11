@@ -1,17 +1,51 @@
-# Sanity Clean Content Studio
+# Sanity Media Template
 
-Congratulations, you have now installed the Sanity Content Studio, an open source real-time content editing environment connected to the Sanity backend.
+This template allows you to quickly clone an existing media site as a Sanity
+and NextJS project by importing articles from an existing website.
 
-Now you can do the following things:
+Please see the various sub-packages for more information.
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+- [Sanity](./packages/sanity/README.md): Sanity Studio and schema
+- [Site](./packages/site/README.md): NextJS site
+- [Migrate](./packages/migrate/README.md): import articles from an existing website
 
-## Quick start
+## Quick Start
 
-This project uses [NPM Workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces). To get started:
+Once you've cloned this repository, you'll need to:
 
-- `npm install`
-- Run Sanity Studio: `npm run dev -w studio` 
-- Run NextJS site: `npm run dev -w site` 
+- install dependencies
+- link to your Sanity project
+- create a Sanity API token
+
+### Install dependencies
+
+```sh
+npm install
+```
+
+### Link to Sanity project
+
+You will need to link this project to your Sanity project. To either link to an existing project, or create a new one, run the following command from the project root:
+
+```sh
+npm run setup
+```
+
+### Create a Sanity API token
+
+Next, you will also need to create a Sanity API token. To do so, run the following command:
+
+```sh
+npm run setup:token -w studio
+```
+
+Navigate to the `API` tab in your project settings, and create a new token. Copy the token and paste it into the terminal.
+
+Add the value of the token to your `.env` files, both in the `site` and `studio` packages.
+
+### Run the project
+
+The NextJS site and the Studio run on different servers, so you will need to run them in separate terminal windows.
+
+- Run Sanity Studio: `npm run dev -w studio`
+- Run NextJS site: `npm run dev -w site`

@@ -3,14 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "main": "package.json",
-  "workspaces": [
-    "./packages/*"
-  ],
+  "workspaces": ["./packages/*"],
   "license": "UNLICENSED",
-  "scripts": {},
-  "keywords": [
-    "sanity"
-  ],
+  "scripts": {
+    "setup": "node ./scripts/initProject.js"
+  },
+  "keywords": ["sanity"],
   "prettier": {
     "semi": false,
     "printWidth": 100,
