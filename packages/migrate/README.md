@@ -30,7 +30,7 @@ Then to write the data as an ND-JSON file ready for import using Sanity's CLI to
 
 And finally to upload to Sanity:
 - navigate to the folder containing your Sanity configuration
-- run `npx sanity dataset ../packages/migrate/data/db.ndjson production`
+- run `npx sanity dataset ../packages/migrate/data/sanity-blog.ndjson production`
 
 Note that the `db.ndjson` file is named after the `PROJECT_NAME` defined in `.env`,
 and the path should be updated to match the location of the exported data.
