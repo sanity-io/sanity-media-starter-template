@@ -4,9 +4,9 @@ import {IoNewspaperOutline} from 'react-icons/io5'
 import {EditIcon, EyeOpenIcon} from '@sanity/icons'
 import OpenGraphPreview from '../previews/openGraphPreview'
 
-const excludedSchemaTypes = ['media.tag', 'newsletter']
+const excludedSchemaTypes = ['media.tag', 'newsletter', 'article']
 
-/* A invalid document ID guaranteed to not exist in the dataset
+/* An invalid document ID guaranteed to not exist in the dataset
  * Used as fallback when filtering document types in list items, in case
  * `listItem.getId()` returns `undefined` for some reason.
  */
