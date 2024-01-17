@@ -7,6 +7,8 @@ import structure from './src/structure'
 import {presentationTool} from 'sanity/presentation'
 import CopyHTMLToClipboard from './src/actions/copyHTMLToClipboard'
 import { assist } from '@sanity/assist'
+import {scheduledPublishing} from '@sanity/scheduled-publishing'
+
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -36,6 +38,7 @@ export default defineConfig({
       structure,
     }),
     assist(),
+    scheduledPublishing(),
     visionTool(),
     media(),
     presentationTool({
