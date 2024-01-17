@@ -6,6 +6,7 @@ import {media} from 'sanity-plugin-media'
 import structure from './src/structure'
 import {presentationTool} from 'sanity/presentation'
 import CopyHTMLToClipboard from './src/actions/copyHTMLToClipboard'
+import { assist } from '@sanity/assist'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -34,6 +35,7 @@ export default defineConfig({
     deskTool({
       structure,
     }),
+    assist(),
     visionTool(),
     media(),
     presentationTool({
