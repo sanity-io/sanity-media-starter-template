@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "import": "bun run src/index.ts import",
-    "export": "bun run src/index.ts write",
+    "export": "bun run src/index.ts export",
     "fake": "bun run src/index.ts fake"
   },
   "license": "UNLICENSED",

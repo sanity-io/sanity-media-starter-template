@@ -7,7 +7,10 @@ const args = process.argv.slice(2)
 
 const main = (args: string[]) => {
   if (args.length === 0) {
-    console.log('No arguments provided.')
+    console.log('No command provided. Options are:')
+    console.log('import - Scrape content from a website')
+    console.log('export - Write scraped content to disk')
+    console.log('fake - Generate fake articles')
     return
   }
 
@@ -17,7 +20,7 @@ const main = (args: string[]) => {
     scrape()
   }
 
-  if (command === 'write') {
+  if (command === 'export') {
     console.log('📤 Exporting content')
     write()
   }
