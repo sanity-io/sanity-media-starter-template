@@ -8,6 +8,8 @@ import {presentationTool} from 'sanity/presentation'
 import CopyHTMLToClipboard from './src/actions/copyHTMLToClipboard'
 import {assist} from '@sanity/assist'
 import {scheduledPublishing} from '@sanity/scheduled-publishing'
+import {dashboardTool, sanityTutorialsWidget} from '@sanity/dashboard'
+import {documentListWidget} from 'sanity-plugin-dashboard-widget-document-list'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -38,6 +40,27 @@ export default defineConfig({
       defaultDocumentNode: defaultDocumentNodeResolver,
     }),
     assist(),
+    dashboardTool({
+      widgets: [
+        documentListWidget({
+          title: 'Newly added',
+          order: '_createdAt desc',
+          types: ['article', 'newsletter'],
+          layout: {
+            width: 'large',
+          },
+        }),
+        documentListWidget({
+          title: 'Latest edits',
+          order: '_updatedAt desc',
+          types: ['article', 'newsletter'],
+          layout: {
+            width: 'medium',
+          },
+        }),
+        sanityTutorialsWidget(),
+      ],
+    }),
     scheduledPublishing(),
     visionTool(),
     media(),
