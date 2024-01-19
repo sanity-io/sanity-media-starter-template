@@ -34,6 +34,7 @@
     "sanity-plugin-dashboard-widget-document-list": "^1.0.1",
     "sanity-plugin-document-reference-by": "^1.0.1",
     "sanity-plugin-media": "^2.2.4",
+    "sanity-plugin-social-preview": "^1.1.0",
     "sanity-plugin-workflow": "^1.0.2",
     "styled-components": "^5.3.3"
   },

@@ -1,10 +1,10 @@
+import {EditIcon, EyeOpenIcon, LinkIcon} from '@sanity/icons'
+import {IoNewspaperOutline} from 'react-icons/io5'
 import {StructureBuilder} from 'sanity/desk'
 import EmailPreview from '../previews/emailPreview'
-import {IoNewspaperOutline} from 'react-icons/io5'
-import {EditIcon, EyeOpenIcon, LinkIcon} from '@sanity/icons'
-import OpenGraphPreview from '../previews/openGraphPreview'
 
 import {ReferencedBy} from 'sanity-plugin-document-reference-by'
+import {SocialPreview, toPlainText} from 'sanity-plugin-social-preview'
 
 /**
  * A default document node resolver that adds a "Referenced by" tab to all documents.
@@ -56,7 +56,42 @@ const structure = (S: StructureBuilder) => {
                 .schemaType('article')
                 .views([
                   S.view.form().icon(EditIcon),
-                  S.view.component(OpenGraphPreview).title('Open Graph Preview').icon(EyeOpenIcon),
+                  S.view
+                    .component(
+                      SocialPreview({
+                        prepareData: ({headline, content, coverImage, seo, slug, og}) => {
+                          console.log({headline, coverImage, seo, slug, og})
+
+                          const title = og?.title ?? headline
+                          const image = og?.image?.asset?._ref ?? coverImage?.asset?._ref
+                          const description = og?.description ?? toPlainText(content || [])
+
+                          const url = new URL(
+                            '/api/og',
+                            process.env.SANITY_STUDIO_SITE_PUBLIC_BASE_URL,
+                          )
+
+                          if (title) {
+                            url.searchParams.append('title', title)
+                          }
+
+                          if (image) {
+                            url.searchParams.append('image', image)
+                          }
+
+                          const ogImgSrc = url.toString()
+
+                          return {
+                            title,
+                            description: description.slice(0, 200),
+                            url: `${process.env.SANITY_STUDIO_SITE_PUBLIC_BASE_URL}/${slug.current}`,
+                            image: ogImgSrc,
+                          }
+                        },
+                      }),
+                    )
+                    .title('Social Preview')
+                    .icon(EyeOpenIcon),
                   S.view.component(ReferencedBy).title('Referenced by').icon(LinkIcon),
                 ]),
             ),
