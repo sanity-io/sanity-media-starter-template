@@ -18,7 +18,10 @@ const fetchSourceArticles = async () => {
 
   console.log(`Fetching ${urls.length} articles from ${process.env.SITE_URL}`)
 
-  let limit = 30
+  // Limit the number of articles we fetch
+  let limit = 100
+  console.log(`⚠️ Limiting import to maximum of ${limit} articles`)
+  
   const siteSegment = new URL(process.env.SITE_URL).pathname
   const regex = new RegExp(`^${siteSegment}`)
 
