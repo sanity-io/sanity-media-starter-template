@@ -3,6 +3,7 @@ import { DocumentsIcon } from '@sanity/icons'
 import authorDocument from './author'
 import tagDocument from './tag'
 import { basePortableTextFields } from '../fields';
+import {validateHeadlineStyle} from '../../src/utils/validators'
 
 interface PrepareReturnType {
   title: string;
@@ -28,13 +29,19 @@ export default defineType({
   fields: [
     defineField({
       name: 'headline',
-      title: 'Hed',
+      title: 'Headline',
       type: 'string',
       group: 'content',
+      validation: (Rule) =>
+        Rule.required().custom((value) => {
+          if (!value) return true
+
+          return validateHeadlineStyle(value) ? true : 'Headline must be title case'
+        }),
     }),
     defineField({
       name: 'subHeadline',
-      title: 'Dek',
+      title: 'Subheading',
       type: 'string',
       group: 'content',
     }),
