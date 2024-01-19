@@ -23,6 +23,16 @@ export const initDb = (db: Database) => {
   `,
   )
 
+  // Create article tags table
+  db.run(
+    `
+    CREATE TABLE IF NOT EXISTS tags (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL
+    )
+  `,
+  )
+
   // Create article authors table
   db.run(
     `

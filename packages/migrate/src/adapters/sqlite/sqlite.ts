@@ -5,6 +5,7 @@ import {join} from 'node:path'
 import {Article, ArticleDereferenced, SourceArticle} from '../../blocks/article'
 import {DataAdapter} from '..'
 import {compact} from '@thalesrc/js-utils/object'
+import {Tag} from '../../blocks/tag'
 
 export const actions = (db: Database): DataAdapter => {
   const addSourceArticle = db.prepare<void, [string, string, string | null]>(`
@@ -51,6 +52,21 @@ export const actions = (db: Database): DataAdapter => {
     })
   }
 
+  const addTag = db.prepare(`
+    INSERT INTO tags (id, name)
+    VALUES (?, ?)
+    ON CONFLICT (id) DO UPDATE SET
+      name = excluded.name
+  `)
+
+  const addTags = (tags: Tag[]) => {
+    tags.map((tag) => {
+      addTag.run(tag._id, tag.name)
+    })
+  }
+
+  const getTags = db.prepare<Tag & {id: string}, []>(`SELECT * FROM tags`)
+
   const addArticleQuery = db.prepare<void, [string, string, string]>(`
     INSERT INTO articles (slug, date, content)
     VALUES (?, ?, ?)
@@ -76,6 +92,11 @@ export const actions = (db: Database): DataAdapter => {
 
   const exportData = async () => {
     const articles = await getArticles.all().map(({content}) => JSON.parse(content))
+    const tags = await getTags.all().map((tag) => ({
+      _type: 'tag',
+      _id: tag.id,
+      name: tag.name,
+    }))
     const authors = await getAuthors.all().map(({id, ...author}) => {
       // Delete null-ish values
       return compact({
@@ -98,7 +119,7 @@ export const actions = (db: Database): DataAdapter => {
       'data',
       `${process.env.PROJECT_NAME}.ndjson`,
     )
-    const data = NdJson.stringify([...articles, ...authors])
+    const data = NdJson.stringify([...articles, ...tags, ...authors])
     Bun.write(destination, data)
     console.log(`💾 Exported content to ${destination}`)
   }

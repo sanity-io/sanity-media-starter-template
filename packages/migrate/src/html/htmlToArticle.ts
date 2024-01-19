@@ -1,5 +1,7 @@
 import {type Article} from '../blocks/article'
 import {Author} from '../blocks/author'
+import {Tag} from '../blocks/tag'
+import { sanitizeId } from '../utils'
 import {createDocument} from '../utils/dom'
 import {htmlToBlockContent} from './htmlToBlockContent'
 import {AuthorJSONSchema} from './validators'
@@ -26,6 +28,16 @@ export const parseArticleContent = async ({
   const title = JSONSchema.headline
   const subHeadline = doc.querySelector(process.env.SELECTOR_SUBTITLE)?.textContent ?? ''
   const publishDate = JSONSchema?.datePublished
+
+  const rawTags = JSONSchema?.keywords ?? doc.querySelector(process.env.SELECTOR_TAGS)?.content
+  const tags: Tag[] =
+    typeof rawTags === 'string'
+      ? rawTags.split(',').map((tag) => ({
+          _type: 'tag',
+          _id: `tag_${sanitizeId(tag.trim())}`,
+          name: tag.trim(),
+        }))
+      : []
 
   const authors: Author[] = []
 
@@ -65,7 +77,7 @@ export const parseArticleContent = async ({
 
   return {
     ...{
-      _id: `article_${slug.replace(/[^a-zA-Z-_0-9]/g, '-')}`,
+      _id: `article_${sanitizeId(slug)}`,
       slug: {current: slug},
       _type: 'article',
       headline: title,
@@ -73,6 +85,7 @@ export const parseArticleContent = async ({
       publishDate,
       content,
       authors,
+      tags,
     },
     ...(coverImage
       ? {

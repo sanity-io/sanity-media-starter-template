@@ -3,6 +3,7 @@ import {Author, AuthorRef, authorToRef} from './author'
 import {ImageRef} from './imageRef'
 import {OpenGraphProps} from './openGraphProperties'
 import {BlockEditorContent} from './blockEditor'
+import {Tag, TagRef, tagToRef} from './tag'
 
 /**
  * Full validation schema for a Sanity `article` document.
@@ -20,7 +21,7 @@ export const Article = z.object({
   }),
   publishDate: z.string().datetime(),
   content: z.array(BlockEditorContent),
-  tags: z.array(z.string()).optional(),
+  tags: z.array(Tag).optional(),
   authors: z.array(Author).min(1),
   og: OpenGraphProps.optional(),
 })
@@ -34,13 +35,16 @@ export type Article = z.infer<typeof Article>
  */
 export const ArticleDereferenced = Article.transform((article) => {
   const authorRefs: AuthorRef[] = article.authors.map(authorToRef)
+  const tagRefs: TagRef[] = article.tags?.map(tagToRef) ?? []
 
   return {
     article: {
       ...article,
       authors: authorRefs,
+      tags: tagRefs,
     },
     authors: article.authors,
+    tags: article.tags ?? [],
   }
 })
 
