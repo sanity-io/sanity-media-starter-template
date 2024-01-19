@@ -10,6 +10,7 @@ import {assist} from '@sanity/assist'
 import {scheduledPublishing} from '@sanity/scheduled-publishing'
 import {dashboardTool, sanityTutorialsWidget} from '@sanity/dashboard'
 import {documentListWidget} from 'sanity-plugin-dashboard-widget-document-list'
+import {workflow} from 'sanity-plugin-workflow'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -60,6 +61,11 @@ export default defineConfig({
         }),
         sanityTutorialsWidget(),
       ],
+    }),
+    workflow({
+      schemaTypes: ['article', 'newsletter'],
+      // @see https://github.com/sanity-io/sanity-plugin-workflow
+      // states: [],
     }),
     scheduledPublishing(),
     visionTool(),

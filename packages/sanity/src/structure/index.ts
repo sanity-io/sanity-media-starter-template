@@ -17,7 +17,7 @@ export const defaultDocumentNodeResolver = (S: StructureBuilder) =>
     S.view.component(ReferencedBy).title('Referenced by').icon(LinkIcon),
   ])
 
-const excludedSchemaTypes = ['media.tag', 'newsletter', 'article']
+const excludedSchemaTypes = ['media.tag', 'newsletter', 'article', 'workflow.metadata']
 
 /* An invalid document ID guaranteed to not exist in the dataset
  * Used as fallback when filtering document types in list items, in case
