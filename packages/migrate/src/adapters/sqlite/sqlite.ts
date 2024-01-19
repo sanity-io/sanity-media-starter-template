@@ -44,7 +44,7 @@ export const actions = (db: Database): DataAdapter => {
         author.email,
         author.jobTitle,
         author.bio,
-        author.headshot?._sanityAsset ?? null,
+        author.headshot ? JSON.stringify(author.headshot) : null,
         author.twitter,
         author.linkedin,
       )
@@ -59,12 +59,15 @@ export const actions = (db: Database): DataAdapter => {
       content = excluded.content
   `)
 
-  const getAuthors = db.prepare<Author & {id: string}, []>(`SELECT * FROM authors`)
+  const getAuthors = db.prepare<Author & {id: string; headshot: string}, []>(
+    `SELECT * FROM authors`
+  )
 
   const addArticle = (data: Article) => {
-    const {article, authors} = ArticleDereferenced.parse(data)
+    const {article, authors, tags} = ArticleDereferenced.parse(data)
 
     addAuthors(authors)
+    addTags(tags)
 
     addArticleQuery.run(article.slug.current, article.publishDate, JSON.stringify(article))
   }
@@ -77,6 +80,7 @@ export const actions = (db: Database): DataAdapter => {
       // Delete null-ish values
       return compact({
         ...author,
+        headshot: author.headshot ? JSON.parse(author.headshot) : null,
         _type: 'author',
         _id: id,
       })
