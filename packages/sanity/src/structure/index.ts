@@ -1,8 +1,21 @@
 import {StructureBuilder} from 'sanity/desk'
 import EmailPreview from '../previews/emailPreview'
 import {IoNewspaperOutline} from 'react-icons/io5'
-import {EditIcon, EyeOpenIcon} from '@sanity/icons'
+import {EditIcon, EyeOpenIcon, LinkIcon} from '@sanity/icons'
 import OpenGraphPreview from '../previews/openGraphPreview'
+
+import {ReferencedBy} from 'sanity-plugin-document-reference-by'
+
+/**
+ * A default document node resolver that adds a "Referenced by" tab to all documents.
+ * This tab shows all documents that reference the current document, e.g.
+ * when viewing an author, it will show all articles written by that author.
+ */
+export const defaultDocumentNodeResolver = (S: StructureBuilder) =>
+  S.document().views([
+    S.view.form(),
+    S.view.component(ReferencedBy).title('Referenced by').icon(LinkIcon),
+  ])
 
 const excludedSchemaTypes = ['media.tag', 'newsletter', 'article']
 
@@ -43,6 +56,7 @@ const structure = (S: StructureBuilder) => {
                 .views([
                   S.view.form().icon(EditIcon),
                   S.view.component(OpenGraphPreview).title('Open Graph Preview').icon(EyeOpenIcon),
+                  S.view.component(ReferencedBy).title('Referenced by').icon(LinkIcon),
                 ]),
             ),
         ),

@@ -3,12 +3,11 @@ import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
 import {media} from 'sanity-plugin-media'
-import structure from './src/structure'
+import structure, {defaultDocumentNodeResolver} from './src/structure'
 import {presentationTool} from 'sanity/presentation'
 import CopyHTMLToClipboard from './src/actions/copyHTMLToClipboard'
-import { assist } from '@sanity/assist'
+import {assist} from '@sanity/assist'
 import {scheduledPublishing} from '@sanity/scheduled-publishing'
-
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -36,6 +35,7 @@ export default defineConfig({
   plugins: [
     deskTool({
       structure,
+      defaultDocumentNode: defaultDocumentNodeResolver,
     }),
     assist(),
     scheduledPublishing(),
