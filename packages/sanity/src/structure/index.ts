@@ -19,7 +19,8 @@ export const defaultDocumentNodeResolver = (S: StructureBuilder) =>
 
 const excludedSchemaTypes = ['media.tag', 'newsletter', 'article', 'workflow.metadata']
 
-/* An invalid document ID guaranteed to not exist in the dataset
+/**
+ * An invalid document ID guaranteed to not exist in the dataset
  * Used as fallback when filtering document types in list items, in case
  * `listItem.getId()` returns `undefined` for some reason.
  */

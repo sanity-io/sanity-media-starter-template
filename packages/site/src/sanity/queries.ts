@@ -9,7 +9,12 @@ export const homePageQuery = groq`
     subHeadline
   }
 `
-
+/**
+ * Fetch an article by its slug/URL.
+ * 
+ * For `related` articles, we want to show articles that share at least one tag with the current article.
+ * However if there aren't enough articles that share tags, we fill out the list with recent articles instead.
+ */
 export const articlesBySlugQuery = groq`
   *[_type == 'article' && slug.current == $slug][0] {
     _id,
@@ -19,6 +24,21 @@ export const articlesBySlugQuery = groq`
     headline,
     quip,
     subHeadline,
-    tags
+    tags,
+    "related": (
+      (
+        *[
+        _type == "article" &&
+        _id != ^._id &&
+        count(tags[@._ref in ^.^.tags[]._ref]) > 0
+        ] | order(publishedAt desc, _createdAt desc)[0...3]
+      ) + *[_type == "article" && _id != ^._id][0...3]
+    )[0...3] {
+      _id,
+      "slug": slug.current,
+      coverImage,
+      headline,
+      subHeadline,
+    }
   }
 `

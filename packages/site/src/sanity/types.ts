@@ -18,4 +18,5 @@ export type ArticlePayload = {
     description?: string
     image?: Image
   }
+  related: Pick<ArticlePayload, '_id' | 'slug' | 'coverImage' | 'headline' | 'subHeadline'>[]
 }
