@@ -4,36 +4,30 @@
 // update .env with Sanity project ID and dataset
 // copy .env.example to .env
 
+const fs = require('fs')
+const path = require('path')
 const {spawn} = require('node:child_process')
 
 const subprocess = spawn('npx', ['sanity', 'init', '--bare'], {
   stdio: ['inherit', 'pipe', 'inherit'],
+  shell: true,
 })
+
+subprocess.stdout.pipe(process.stdout)
 
 let sanityProjectId = ''
 let sanityDataset = ''
 
 subprocess.stdout.on('data', (data) => {
   try {
-    if (data.includes('Project ID:')) {
+    if (data.includes('Project ID:') || data.includes('Dataset:')) {
       const result = data.toString()
+
       const sanityProjectMatch = result.match(/Project ID: (.*)/)
       const sanityDatasetMatch = result.match(/Dataset: (.*)/)
 
-      sanityProjectId = sanityProjectMatch ? sanityProjectMatch[1] : ''
-      sanityDataset = sanityDatasetMatch ? sanityDatasetMatch[1] : ''
-
-      console.clear()
-
-      setTimeout(() => {
-        updatePackageEnvs(sanityProjectId, sanityDataset)
-      }, 50)
-    } else {
-      console.clear()
-
-      setTimeout(() => {
-        console.log(`${data}`)
-      }, 10)
+      sanityProjectId = sanityProjectMatch ? sanityProjectMatch[1] : sanityProjectId
+      sanityDataset = sanityDatasetMatch ? sanityDatasetMatch[1] : sanityDataset
     }
   } catch (error) {
     console.log('Something went wrong, please try again.')
@@ -41,8 +35,13 @@ subprocess.stdout.on('data', (data) => {
   }
 })
 
-const fs = require('fs')
-const path = require('path')
+subprocess.on('close', (code) => {
+  if (code === 0) {
+    updatePackageEnvs(sanityProjectId, sanityDataset)
+  } else {
+    console.log('Something went wrong, please try again.')
+  }
+})
 
 function updateEnv(projectId, datasetName, packageRoot) {
   console.log('Updating .env file in', packageRoot)
@@ -73,8 +72,12 @@ function updateEnv(projectId, datasetName, packageRoot) {
 }
 
 function updatePackageEnvs(projectId, datasetName) {
-  if (!projectId || !datasetName) {
-    throw new Error('Could not parse Sanity project ID or dataset name.\nPlease try again.')
+  if (!projectId) {
+    throw new Error('Could not parse Sanity project ID.\nPlease try again.')
+  }
+
+  if (!datasetName) {
+    throw new Error('Could not parse Sanity dataset name.\nPlease try again.')
   }
 
   console.log('Updating package env variables')
