@@ -3,8 +3,8 @@ import {IoNewspaperOutline} from 'react-icons/io5'
 import {StructureBuilder} from 'sanity/desk'
 import EmailPreview from '../previews/emailPreview'
 
-import {ReferencedBy} from 'sanity-plugin-document-reference-by'
 import {SocialPreview, toPlainText} from 'sanity-plugin-social-preview'
+import ReferencedBy from '../plugins/backlings'
 
 /**
  * A default document node resolver that adds a "Referenced by" tab to all documents.
