@@ -16,7 +16,7 @@ const fetchSourceArticles = async () => {
 
   const urls = await getArticleLinks(process.env.SITE_URL)
 
-  console.log(`Fetching ${urls.length} articles from ${process.env.SITE_URL}`)
+  console.log(`Found ${urls.length} articles on ${process.env.SITE_URL}`)
 
   // Limit the number of articles we fetch
   let limit = 100
