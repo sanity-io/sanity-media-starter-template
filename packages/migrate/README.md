@@ -46,6 +46,7 @@ For scraping content we use two approaches:
 - `SELECTOR_SUBTITLE`: article subtitle text
 - `SELECTOR_ARTICLE_CONTENT`: element containing article content. The inner HTML
   will be parsed and imported as PortableText block
+- `SELECTOR_AUTHOR`: element containing the article author. Used to find the profile photo.
 
 ## Architecture
 
