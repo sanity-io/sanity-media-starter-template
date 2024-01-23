@@ -10,6 +10,7 @@ import type {Image} from 'sanity'
 
 import {
   Body,
+  Button,
   Container,
   Column,
   Head,
@@ -81,18 +82,31 @@ const Email = ({ document }: EmailProps) => {
             </Row>
           </Section>
           {/* Content sections */}
-          {content && content.map(({_key, title, image, imageLink, content}, index) => (
-            _key && content ? (
-              <Section key={_key} style={section}>
-                {title && <Text style={heading}>{title}</Text>}
-                {image && <Link href={imageLink}><ImageComponent value={image}/></Link>}
-                <Text style={paragraph}>
-                  <PortableText value={content} components={emailComponents} />
-                </Text>
-                {index < content.length - 1 && <Hr style={hr} />}
-              </Section>
-            ) : null
-          ))}
+          {content &&
+            content.map(({_key, title, image, imageLink, content, _type}, index) =>
+              _key && content ? (
+                <Section key={_key} style={section}>
+                  {title && <Text style={heading}>{title}</Text>}
+                  {image && (
+                    <Link href={imageLink}>
+                      <ImageComponent value={image} />
+                    </Link>
+                  )}
+                  <Text style={paragraph}>
+                    <PortableText
+                      value={_type === 'newsletterArticle' ? content.slice(0, 1) : content}
+                      components={emailComponents}
+                    />
+                  </Text>
+                  {_type === 'newsletterArticle' && (
+                    <Button href={imageLink} style={button}>
+                      Read full article
+                    </Button>
+                  )}
+                  {index < content.length - 1 && <Hr style={hr} />}
+                </Section>
+              ) : null,
+            )}
         </Container>
         {/* Static footer */}
         <Section style={footer}>
@@ -168,12 +182,19 @@ const heading = {
   fontSize: 20,
   fontWeight: '700',
   color: '#9147ff',
-  margin: 0,
+  margin: '0 0 8px 0',
 };
 
 const hr = {
   borderColor: '#e8eaed',
   margin: '15px 0',
-};
+}
+
+const button = {
+  backgroundColor: '#9147ff',
+  borderRadius: '4px',
+  color: 'white',
+  padding: '8px 16px',
+}
 
 export default Email;

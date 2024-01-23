@@ -8,8 +8,12 @@ import { documentResolver } from '../../components/email/documentResolver'
 import type { EmailDocument } from '../../types'
 
 const fetchContent = async (document: SanityDocument): Promise<EmailDocument> => {
-  return await sanityClient.fetch(getEmailContent(document._id));
-};
+  return sanityClient
+    .config({
+      perspective: 'previewDrafts',
+    })
+    .fetch(getEmailContent(document._id.replace('drafts.', '')))
+}
 
 const EmailPreview = (
   { document }: { document: EmailDocument }
