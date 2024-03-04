@@ -1,5 +1,5 @@
 import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
+import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
 import {media} from 'sanity-plugin-media'
@@ -39,7 +39,7 @@ export default defineConfig({
   dataset: DATASET,
 
   plugins: [
-    deskTool({
+    structureTool({
       structure,
       defaultDocumentNode: defaultDocumentNodeResolver,
     }),

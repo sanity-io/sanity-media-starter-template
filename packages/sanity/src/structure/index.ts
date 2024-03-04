@@ -1,6 +1,6 @@
 import {EditIcon, EyeOpenIcon, LinkIcon} from '@sanity/icons'
 import {IoNewspaperOutline} from 'react-icons/io5'
-import {StructureBuilder} from 'sanity/desk'
+import {StructureBuilder} from 'sanity/structure'
 import EmailPreview from '../previews/emailPreview'
 
 import {SocialPreview, toPlainText} from 'sanity-plugin-social-preview'
