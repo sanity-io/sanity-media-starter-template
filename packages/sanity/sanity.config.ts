@@ -28,6 +28,9 @@ if (!SITE_ORIGIN) {
   throw new Error('Missing env SANITY_STUDIO_SITE_PUBLIC_BASE_URL')
 }
 
+// Prevent listing these document types in the "Create" button dropdown in the Studio
+const singletonTypes = new Set(['workflow.metadata'])
+
 export default defineConfig({
   name: 'default',
   title: 'Media Starter',
@@ -81,6 +84,7 @@ export default defineConfig({
   ],
   schema: {
     types: schemaTypes,
+    templates: (templates) => templates.filter(({schemaType}) => !singletonTypes.has(schemaType)),
   },
   document: {
     actions: [CopyHTMLToClipboard],
