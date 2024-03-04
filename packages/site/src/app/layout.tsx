@@ -29,6 +29,14 @@ const getSiteUrl = () => {
 
 export const metadata: Metadata = {
   title: 'Sanity Media Starter Template',
+  /**
+   * Disable indexing and following for all pages content will most
+   * often be scraped from third-party websites.
+   */
+  robots: {
+    index: false,
+    follow: false,
+  },
   metadataBase: new URL(getSiteUrl()),
   openGraph: {
     title: 'Sanity Media Starter Template',
