@@ -2,17 +2,18 @@ import type {ArticlePayload} from '@/sanity/types'
 import {PortableText} from '@portabletext/react'
 import type {EncodeDataAttributeCallback} from '@sanity/react-loader/rsc'
 import {SanityImage} from '../SanityImage'
-import Link from 'next/link'
 import {ArticleCard} from './ArticleCard'
+import {SignUpForm} from '../ContentGate/SignUpForm'
 
 export interface PageProps {
   data: ArticlePayload | null
+  isTruncated?: boolean
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
-export const Article = ({data, encodeDataAttribute}: PageProps) => {
+export const Article = ({data, encodeDataAttribute, isTruncated}: PageProps) => {
   // Default to an empty object to allow previews on non-existent documents
-  const {content, headline, subHeadline, coverImage} = data ?? {}
+  const {accessLevel, content, headline, subHeadline, coverImage} = data ?? {}
 
   return (
     <>
@@ -33,18 +34,24 @@ export const Article = ({data, encodeDataAttribute}: PageProps) => {
         />
         <main>
           <PortableText value={content ?? []} />
+
+          {isTruncated && <p className="text-center italic">Sign up to read the full article…</p>}
         </main>
+
+        {isTruncated && <SignUpForm />}
       </article>
 
-      <aside className="px-4 md:px-16 lg:px-32 py-7">
-        <ul className="list-none flex p-0 m-0 gap-5">
-          {data?.related?.map((article) => (
-            <li key={article._id}>
-              <ArticleCard article={{...article, _id: article._id}} isFeatured={false} />
-            </li>
-          ))}
-        </ul>
-      </aside>
+      {!isTruncated && (
+        <aside className="px-4 md:px-16 lg:px-32 py-7">
+          <ul className="list-none flex p-0 m-0 gap-5">
+            {data?.related?.map((article) => (
+              <li key={article._id}>
+                <ArticleCard article={{...article, _id: article._id}} isFeatured={false} />
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
     </>
   )
 }

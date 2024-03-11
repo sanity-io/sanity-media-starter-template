@@ -5,6 +5,7 @@ export type HomePagePayload = Omit<ArticlePayload, 'content' | 'quip' | 'tags'>[
 
 export type ArticlePayload = {
   _id: string
+  accessLevel: 'auto' | 'premium' | 'public'
   content: PortableTextBlock[]
   coverImage: Image
   headline: string
@@ -18,5 +19,8 @@ export type ArticlePayload = {
     description?: string
     image?: Image
   }
-  related: Pick<ArticlePayload, '_id' | 'slug' | 'coverImage' | 'headline' | 'subHeadline'>[]
+  related: Pick<
+    ArticlePayload,
+    '_id' | 'slug' | 'accessLevel' | 'coverImage' | 'headline' | 'subHeadline'
+  >[]
 }

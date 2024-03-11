@@ -13,6 +13,17 @@ const config: Config = {
       ...theme.colors,
       brand: '#ec5c52',
     },
+    extend: {
+      keyframes: {
+        'slide-up': {
+          '0%': {transform: 'translateY(100%)'},
+          '100%': {transform: 'translateY(0)'},
+        },
+      },
+      animation: {
+        'slide-up': '.75s slide-up 1s ease-in-out forwards',
+      },
+    },
     // Overriding fontFamily to use @next/font loaded families
     fontFamily: {
       title: 'var(--font-title)',

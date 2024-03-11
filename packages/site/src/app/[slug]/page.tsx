@@ -1,3 +1,5 @@
+import {canReadArticle} from '@/libs/contentGate'
+import {IncrementArticleCount} from '@/components/ContentGate/IncrementArticleCount'
 import {Article} from '@/components/Article/ArticlePage'
 import {loadArticle} from '@/sanity/loader/loadQuery'
 import {Metadata, ResolvingMetadata} from 'next'
@@ -12,13 +14,12 @@ type Props = {
 
 export async function generateMetadata(
   {params}: Props,
-  parentPromise: ResolvingMetadata
+  parentPromise: ResolvingMetadata,
 ): Promise<Metadata> {
   const {data} = await loadArticle(params.slug)
   const parent = await parentPromise
 
   const previousTitle = parent.title || ''
-  const previousImages = parent.openGraph?.images || []
 
   const OGTitle = data?.og?.title || data?.headline || previousTitle
   const OGImage = data?.og?.image?.asset?._ref || data?.coverImage.asset?._ref
@@ -44,5 +45,15 @@ export default async function PageSlugRoute({params}: Props) {
     notFound()
   }
 
-  return <Article data={initial.data} />
+  const hasFullArticleAccess = await canReadArticle(initial.data.accessLevel)
+  const content = hasFullArticleAccess ? initial.data.content : initial.data.content.slice(0, 2)
+  const data = hasFullArticleAccess ? initial.data : {...initial.data, content}
+
+  return (
+    <>
+      <Article isTruncated={!hasFullArticleAccess} data={data} />
+
+      <IncrementArticleCount articleAccessLevel={data.accessLevel} />
+    </>
+  )
 }
