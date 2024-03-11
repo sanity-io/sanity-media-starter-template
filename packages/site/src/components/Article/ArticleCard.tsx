@@ -2,6 +2,7 @@ import {HomePagePayload} from '@/sanity/types'
 import type {EncodeDataAttributeCallback} from '@sanity/react-loader/rsc'
 import Link from 'next/link'
 import {SanityImage} from '../SanityImage'
+import {cn} from '@/libs/utils'
 
 export const ArticleCard = ({
   className,
@@ -17,7 +18,7 @@ export const ArticleCard = ({
   encodeDataAttribute?: EncodeDataAttributeCallback
   isFeatured: boolean
 }) => (
-  <section className={`${className} ${isFeatured ? 'col-span-2 row-span-2' : ''}`}>
+  <section className={cn(className, isFeatured && 'md:col-span-2 md:row-span-2')}>
     <Link
       href={`/${article.slug}`}
       className="flex flex-col gap-2"
@@ -39,9 +40,10 @@ export const ArticleCard = ({
       </div>
 
       <h2
-        className={`font-title tracking-wide text-center leading-tight ${
-          isFeatured ? 'col-span-2 row-span-2 text-3xl' : 'text-2xl'
-        }`}
+        className={cn(
+          `font-title tracking-wide text-center leading-tight text-2xl`,
+          isFeatured && 'md:text-3xl',
+        )}
         data-sanity={encodeDataAttribute?.('headline')}
       >
         {article.headline}

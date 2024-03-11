@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import {Logo} from './Logo'
+import {cn} from '@/libs/utils'
 
 type Props = {
   compact?: boolean
@@ -11,7 +12,7 @@ export const Header = ({compact}: Props) => {
   return (
     <header className="flex flex-col items-center justify-center px-4 md:px-16 lg:px-32 pt-6 pb-5">
       <Link href="/" className="inline-block">
-        <Logo className={`block max-w-[90vw] w-auto ${variantLogoStyles}`} />
+        <Logo className={cn('block max-w-[90vw] w-auto', variantLogoStyles)} />
       </Link>
     </header>
   )

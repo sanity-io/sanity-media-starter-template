@@ -17,7 +17,7 @@ export const Article = ({data, encodeDataAttribute, isTruncated}: PageProps) => 
 
   return (
     <>
-      <article className="prose dark:prose-invert font-serif mx-auto">
+      <article className="prose dark:prose-invert font-serif mx-auto px-4 md:0">
         <h1
           className="font-title font-bold text-5xl"
           data-sanity={encodeDataAttribute?.('headline') ?? 'test'}
@@ -43,7 +43,7 @@ export const Article = ({data, encodeDataAttribute, isTruncated}: PageProps) => 
 
       {!isTruncated && (
         <aside className="px-4 md:px-16 lg:px-32 py-7">
-          <ul className="list-none flex p-0 m-0 gap-5">
+          <ul className="list-none flex p-0 m-0 gap-5 flex-wrap md:flex-nowrap">
             {data?.related?.map((article) => (
               <li key={article._id}>
                 <ArticleCard article={{...article, _id: article._id}} isFeatured={false} />
