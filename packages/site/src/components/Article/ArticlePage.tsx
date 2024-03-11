@@ -13,11 +13,11 @@ export interface PageProps {
 
 export const Article = ({data, encodeDataAttribute, isTruncated}: PageProps) => {
   // Default to an empty object to allow previews on non-existent documents
-  const {accessLevel, content, headline, subHeadline, coverImage} = data ?? {}
+  const {content, headline, subHeadline, coverImage} = data ?? {}
 
   return (
     <>
-      <article className="prose dark:prose-invert font-serif mx-auto px-4 md:0">
+      <article className="prose dark:prose-invert font-serif mx-auto px-4 md:0 py-5">
         <h1
           className="font-title font-bold text-5xl"
           data-sanity={encodeDataAttribute?.('headline') ?? 'test'}

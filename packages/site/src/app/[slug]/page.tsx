@@ -1,11 +1,13 @@
 import {canReadArticle} from '@/libs/contentGate'
-import {IncrementArticleCount} from '@/components/ContentGate/IncrementArticleCount'
+import {TrackArticleRead} from '@/components/ContentGate/IncrementArticleCount'
 import {Article} from '@/components/Article/ArticlePage'
 import {loadArticle} from '@/sanity/loader/loadQuery'
 import {Metadata, ResolvingMetadata} from 'next'
 import dynamic from 'next/dynamic'
 import {draftMode} from 'next/headers'
 import {notFound} from 'next/navigation'
+import {cache} from 'react'
+import {ArticlePayload} from '@/sanity/types'
 const ArticlePreview = dynamic(() => import('@/components/Article/ArticlePreview'))
 
 type Props = {
@@ -34,26 +36,39 @@ export async function generateMetadata(
   }
 }
 
+/**
+ * Cache the data based on the user's access level
+ */
+const getData = (hasFullArticleAccess: boolean, data: ArticlePayload | null) => {
+  if (!data) {
+    return null
+  }
+
+  const content = hasFullArticleAccess ? data.content : data.content.slice(0, 2)
+  return hasFullArticleAccess ? data : {...data, content}
+}
+
 export default async function PageSlugRoute({params}: Props) {
   const initial = await loadArticle(params.slug)
+
+  const hasFullArticleAccess = initial.data
+    ? await canReadArticle(initial.data?.accessLevel)
+    : false
+
+  const data: ArticlePayload | null = cache(getData)(hasFullArticleAccess, initial.data)
 
   if (draftMode().isEnabled) {
     return <ArticlePreview params={params} initial={initial} />
   }
 
-  if (!initial.data) {
+  if (!data) {
     notFound()
   }
-
-  const hasFullArticleAccess = await canReadArticle(initial.data.accessLevel)
-  const content = hasFullArticleAccess ? initial.data.content : initial.data.content.slice(0, 2)
-  const data = hasFullArticleAccess ? initial.data : {...initial.data, content}
 
   return (
     <>
       <Article isTruncated={!hasFullArticleAccess} data={data} />
-
-      <IncrementArticleCount articleAccessLevel={data.accessLevel} />
+      <TrackArticleRead accessLevel={data.accessLevel} tags={data.tags} />
     </>
   )
 }

@@ -7,7 +7,7 @@ export const client = createClient({
   dataset,
   apiVersion,
   // If webhook revalidation is setup we want the freshest content, if not then it's best to use the speedy CDN
-  useCdn: revalidateSecret ? false : true,
+  useCdn: revalidateSecret || process.env.NODE_ENV === 'development' ? false : true,
   perspective: 'published',
   stega: {
     studioUrl,

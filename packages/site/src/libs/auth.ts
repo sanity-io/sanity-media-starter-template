@@ -18,6 +18,13 @@ export const setUserSession = async () => {
 };
 
 /**
+ * "Log out" the user by clearing the session cookie.
+ */
+export const clearUserSession = async () => {
+  cookies().set('session', 'false');
+};
+
+/**
  * Check if the user is subscribed.
  * We use a simple boolean value in a cookie to track this
  */

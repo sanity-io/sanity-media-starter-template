@@ -13,7 +13,10 @@ export type ArticlePayload = {
   quip?: string
   slug: string
   subHeadline: string
-  tags: string[]
+  tags: {
+    _id: string
+    name: string
+  }[]
   og?: {
     title?: string
     description?: string
@@ -24,3 +27,9 @@ export type ArticlePayload = {
     '_id' | 'slug' | 'accessLevel' | 'coverImage' | 'headline' | 'subHeadline'
   >[]
 }
+
+export type TopTagsPayload = {
+  _id: string
+  name: string
+  referenceCount: number
+}[]

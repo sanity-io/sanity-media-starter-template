@@ -1,19 +1,22 @@
 'use client'
 
 import {useEffect} from 'react'
-import {incrementArticleReadCount} from '../../libs/contentGate'
+import {trackArticleRead} from '../../libs/contentGate'
 import {ArticlePayload} from '@/sanity/types'
 
 type Props = {
-  articleAccessLevel: ArticlePayload['accessLevel']
+  accessLevel: ArticlePayload['accessLevel']
+  tags: ArticlePayload['tags']
 }
 
-export const IncrementArticleCount = ({articleAccessLevel}: Props) => {
+export const TrackArticleRead = ({accessLevel, tags = []}: Props) => {
   useEffect(() => {
-    if (articleAccessLevel !== 'public') {
-      incrementArticleReadCount()
-    }
-  }, [articleAccessLevel])
+    trackArticleRead({
+      accessLevel,
+      tags,
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return null
 }

@@ -26,7 +26,10 @@ export const articlesBySlugQuery = groq`
     headline,
     quip,
     subHeadline,
-    tags,
+    tags[]->{
+      _id,
+      name
+    },
     "related": (
       (
         *[
@@ -44,4 +47,15 @@ export const articlesBySlugQuery = groq`
       subHeadline,
     }
   }
+`
+
+/**
+ * Fetch the top 5 tags by article count
+ */
+export const topTagsQuery = groq`
+  *[_type == "tag"]{
+    _id,
+    name,
+    "referenceCount": count(*[_type == "article" && references(^._id)])
+  } | order(referenceCount desc)[0...5]
 `
