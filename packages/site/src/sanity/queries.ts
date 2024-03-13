@@ -1,7 +1,7 @@
 import {groq} from 'next-sanity'
 
 export const homePageQuery = groq`
-  *[_type == 'article' && defined(slug.current)] | order(publishedAt desc, _createdAt desc)[0...20] {
+  *[_type == 'article' && defined(slug.current)] | order(publishedAt desc, _createdAt desc)[0...30] {
     _id,
     "accessLevel": coalesce(accessLevel, 'auto'),
     "slug": slug.current,

@@ -38,7 +38,7 @@ export const Article = ({data, encodeDataAttribute, isTruncated}: PageProps) => 
           {isTruncated && <p className="text-center italic">Sign up to read the full article…</p>}
         </main>
 
-        {isTruncated && <SignUpForm />}
+        {isTruncated && <SignUpForm isPremium={data?.accessLevel === 'premium'} />}
       </article>
 
       {!isTruncated && (

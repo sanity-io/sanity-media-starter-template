@@ -54,7 +54,7 @@ export const trackArticleRead = async ({
   const c = cookies()
 
   // Increment the article read count
-  if (accessLevel !== 'public') {
+  if (accessLevel === 'auto') {
     const currentCount = c.get('articleReadCount')?.value ?? '0'
     c.set('articleReadCount', `${Number.parseInt(currentCount, 10) + 1}`)
   }
