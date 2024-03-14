@@ -61,8 +61,6 @@ const structure = (S: StructureBuilder) => {
                     .component(
                       SocialPreview({
                         prepareData: ({headline, content, coverImage, seo, slug, og}) => {
-                          console.log({headline, coverImage, seo, slug, og})
-
                           const title = og?.title ?? headline
                           const image = og?.image?.asset?._ref ?? coverImage?.asset?._ref
                           const description = og?.description ?? toPlainText(content || [])

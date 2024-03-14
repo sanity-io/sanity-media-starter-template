@@ -9,6 +9,7 @@ import {Article} from './ArticlePage'
 type Props = {
   params: {slug: string}
   initial: QueryResponseInitial<ArticlePayload | null>
+  isMember: boolean
 }
 
 export default function ArticlePreview(props: Props) {
@@ -17,5 +18,7 @@ export default function ArticlePreview(props: Props) {
     initial,
   })
 
-  return <Article data={data!} encodeDataAttribute={encodeDataAttribute} />
+  return (
+    <Article data={data!} encodeDataAttribute={encodeDataAttribute} isMember={props.isMember} />
+  )
 }

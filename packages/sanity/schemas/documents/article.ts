@@ -116,6 +116,10 @@ export default defineType({
         {
           type: 'image',
         },
+        {
+          type: 'file',
+        },
+        {type: 'premiumContent'},
       ],
       group: 'content',
     }),

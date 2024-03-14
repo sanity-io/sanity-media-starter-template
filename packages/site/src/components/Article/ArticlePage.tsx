@@ -1,17 +1,18 @@
 import type {ArticlePayload} from '@/sanity/types'
-import {PortableText} from '@portabletext/react'
 import type {EncodeDataAttributeCallback} from '@sanity/react-loader/rsc'
 import {SanityImage} from '../SanityImage'
 import {ArticleCard} from './ArticleCard'
-import {SignUpForm} from '../ContentGate/SignUpForm'
+import {SignUpDrawer} from '../ContentGate/SignUpDrawer'
+import {CustomPortableText} from '@/sanity/PortableText'
 
 export interface PageProps {
   data: ArticlePayload | null
   isTruncated?: boolean
+  isMember: boolean
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
-export const Article = ({data, encodeDataAttribute, isTruncated}: PageProps) => {
+export const Article = ({data, encodeDataAttribute, isTruncated, isMember}: PageProps) => {
   // Default to an empty object to allow previews on non-existent documents
   const {content, headline, subHeadline, coverImage} = data ?? {}
 
@@ -33,12 +34,12 @@ export const Article = ({data, encodeDataAttribute, isTruncated}: PageProps) => 
           data-sanity={encodeDataAttribute?.('coverImage')}
         />
         <main>
-          <PortableText value={content ?? []} />
+          <CustomPortableText isMember={isMember} value={content ?? []} />
 
           {isTruncated && <p className="text-center italic">Sign up to read the full article…</p>}
         </main>
 
-        {isTruncated && <SignUpForm isPremium={data?.accessLevel === 'premium'} />}
+        {isTruncated && <SignUpDrawer isPremium={data?.accessLevel === 'premium'} />}
       </article>
 
       {!isTruncated && (

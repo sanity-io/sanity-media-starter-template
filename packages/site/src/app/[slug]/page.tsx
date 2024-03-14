@@ -8,6 +8,7 @@ import {draftMode} from 'next/headers'
 import {notFound} from 'next/navigation'
 import {cache} from 'react'
 import {ArticlePayload} from '@/sanity/types'
+import {isSubscribed} from '@/libs/auth'
 const ArticlePreview = dynamic(() => import('@/components/Article/ArticlePreview'))
 
 type Props = {
@@ -51,6 +52,7 @@ const getData = (hasFullArticleAccess: boolean, data: ArticlePayload | null) => 
 export default async function PageSlugRoute({params}: Props) {
   const initial = await loadArticle(params.slug)
 
+  const isUserAuthenticated = await isSubscribed()
   const hasFullArticleAccess = initial.data
     ? await canReadArticle(initial.data?.accessLevel)
     : false
@@ -58,7 +60,7 @@ export default async function PageSlugRoute({params}: Props) {
   const data: ArticlePayload | null = cache(getData)(hasFullArticleAccess, initial.data)
 
   if (draftMode().isEnabled) {
-    return <ArticlePreview params={params} initial={initial} />
+    return <ArticlePreview params={params} initial={initial} isMember={isUserAuthenticated} />
   }
 
   if (!data) {
@@ -67,7 +69,7 @@ export default async function PageSlugRoute({params}: Props) {
 
   return (
     <>
-      <Article isTruncated={!hasFullArticleAccess} data={data} />
+      <Article isTruncated={!hasFullArticleAccess} isMember={isUserAuthenticated} data={data} />
       <TrackArticleRead accessLevel={data.accessLevel} tags={data.tags} />
     </>
   )
