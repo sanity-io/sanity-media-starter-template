@@ -1,6 +1,6 @@
 import type {EmailDocument} from '../../types'
 
-const buildImageLinkFromSlug = (slug: string): string | undefined => {
+export const buildImageLinkFromSlug = (slug: string): string | undefined => {
   if (!slug) return;
   const formattedSlug = slug.startsWith('/') ? slug : `/${slug}`
   return new URL(formattedSlug, process.env.SANITY_STUDIO_SITE_PUBLIC_BASE_URL).toString();

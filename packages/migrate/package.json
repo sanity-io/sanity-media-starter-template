@@ -10,10 +10,10 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
-    "@faker-js/faker": "^8.3.1",
+    "@faker-js/faker": "^8.4.1",
     "@thalesrc/js-utils": "^2.12.0",
     "bun-types": "latest",
-    "jsdom": "^23.0.1",
+    "jsdom": "^24.0.0",
     "json-nd": "^1.0.0",
     "typescript": "^5.3.3",
     "zod": "^3.22.4"

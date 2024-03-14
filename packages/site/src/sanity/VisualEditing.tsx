@@ -1,6 +1,6 @@
 'use client'
 
-import {enableOverlays, HistoryAdapterNavigate} from '@sanity/overlays'
+import {enableVisualEditing} from '@sanity/visual-editing'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import {useEffect, useRef, useState} from 'react'
 
@@ -8,11 +8,25 @@ import {client} from '@/sanity/lib/client'
 
 import {useLiveMode} from './loader/useQuery'
 import {studioUrl} from './lib/api'
+import {FilterDefault} from 'next-sanity'
+import type {HistoryAdapterNavigate} from '@sanity/visual-editing'
+
+const encodeSourceMapAtPath: FilterDefault = (props) => {
+  if (props.sourcePath.at(-1) === 'url') {
+    return false
+  }
+  return props.filterDefault(props)
+}
 
 // Always enable stega in Live Mode
 // See https://vercel.com/docs/workflow-collaboration/visual-editing/cms-guide#
 const stegaClient = client.withConfig({
-  stega: true,
+  stega: {
+    studioUrl,
+    enabled: true,
+    filter: encodeSourceMapAtPath,
+    logger: console,
+  },
 })
 
 export default function VisualEditing() {
@@ -24,8 +38,7 @@ export default function VisualEditing() {
     routerRef.current = router
   }, [router])
   useEffect(() => {
-    const disable = enableOverlays({
-      allowStudioOrigin: studioUrl,
+    const disable = enableVisualEditing({
       history: {
         subscribe: (navigate) => {
           setNavigate(() => navigate)

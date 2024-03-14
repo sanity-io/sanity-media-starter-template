@@ -1,5 +1,5 @@
 import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
+import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
 import {media} from 'sanity-plugin-media'
@@ -28,6 +28,9 @@ if (!SITE_ORIGIN) {
   throw new Error('Missing env SANITY_STUDIO_SITE_PUBLIC_BASE_URL')
 }
 
+// Prevent listing these document types in the "Create" button dropdown in the Studio
+const singletonTypes = new Set(['workflow.metadata'])
+
 export default defineConfig({
   name: 'default',
   title: 'Media Starter',
@@ -36,7 +39,7 @@ export default defineConfig({
   dataset: DATASET,
 
   plugins: [
-    deskTool({
+    structureTool({
       structure,
       defaultDocumentNode: defaultDocumentNodeResolver,
     }),
@@ -81,6 +84,7 @@ export default defineConfig({
   ],
   schema: {
     types: schemaTypes,
+    templates: (templates) => templates.filter(({schemaType}) => !singletonTypes.has(schemaType)),
   },
   document: {
     actions: [CopyHTMLToClipboard],

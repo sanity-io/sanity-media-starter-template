@@ -1,14 +1,14 @@
-import { defineType, defineField } from 'sanity';
-import { DocumentsIcon } from '@sanity/icons'
+import {defineType, defineField} from 'sanity'
+import {DocumentsIcon} from '@sanity/icons'
 import authorDocument from './author'
 import tagDocument from './tag'
-import { basePortableTextFields } from '../fields';
+import {basePortableTextFields} from '../fields'
 import {validateHeadlineStyle} from '../../src/utils/validators'
 
 interface PrepareReturnType {
-  title: string;
-  subtitle: string;
-  media: any;
+  title: string
+  subtitle: string
+  media: any
 }
 
 export default defineType({
@@ -62,7 +62,7 @@ export default defineType({
       name: 'authors',
       title: 'Author(s)',
       type: 'array',
-      of: [{ type: 'reference', to: { type: authorDocument.name } }],
+      of: [{type: 'reference', to: {type: authorDocument.name}}],
       group: 'content',
     }),
     defineField({
@@ -86,8 +86,26 @@ export default defineType({
       name: 'tags',
       title: 'Tag(s)',
       type: 'array',
-      of: [{ type: 'reference', to: { type: tagDocument.name } }],
+      of: [{type: 'reference', to: {type: tagDocument.name}}],
       group: 'content',
+    }),
+    defineField({
+      name: 'accessLevel',
+      title: 'Article availability',
+      description:
+        'Public articles are always accessible to the public. Premium articles can only be viewed by logged in users. Auto will allow limit the number of free articles a user can view before requiring a login.',
+      type: 'string',
+      group: 'content',
+      initialValue: 'auto',
+      options: {
+        layout: 'radio',
+        direction: 'horizontal',
+        list: [
+          {title: 'Auto', value: 'auto'},
+          {title: 'Public', value: 'public'},
+          {title: 'Premium', value: 'premium'},
+        ],
+      },
     }),
     defineField({
       name: 'content',
@@ -96,8 +114,12 @@ export default defineType({
       of: [
         ...basePortableTextFields,
         {
-          type: 'image'
+          type: 'image',
         },
+        {
+          type: 'file',
+        },
+        {type: 'premiumContent'},
       ],
       group: 'content',
     }),
@@ -108,14 +130,12 @@ export default defineType({
       publishDate: 'publishDate',
       image: 'coverImage',
     },
-    prepare({ title, publishDate, image }): PrepareReturnType {
+    prepare({title, publishDate, image}): PrepareReturnType {
       return {
         title: title,
-        subtitle: publishDate
-          ? new Date(publishDate).toDateString()
-          : 'No publish date',
-        media: image
-      };
+        subtitle: publishDate ? new Date(publishDate).toDateString() : 'No publish date',
+        media: image,
+      }
     },
   },
-});
+})

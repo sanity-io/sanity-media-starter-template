@@ -3,9 +3,9 @@ import 'server-only'
 import {draftMode} from 'next/headers'
 
 import {client} from '@/sanity/lib/client'
-import {articlesBySlugQuery, homePageQuery} from '@/sanity/queries'
+import {articlesBySlugQuery, homePageQuery, topTagsQuery} from '@/sanity/queries'
 import {token} from '@/sanity/lib/token'
-import {ArticlePayload, HomePagePayload} from '@/sanity/types'
+import {ArticlePayload, HomePagePayload, TopTagsPayload} from '@/sanity/types'
 
 import {queryStore} from './createQueryStore'
 
@@ -61,6 +61,10 @@ export function loadArticle(slug: string) {
   return loadQuery<ArticlePayload | null>(
     articlesBySlugQuery,
     {slug},
-    {next: {tags: [`article:${slug}`]}}
+    {next: {tags: [`article:${slug}`]}},
   )
+}
+
+export function loadTopTags() {
+  return loadQuery<TopTagsPayload | null>(topTagsQuery, {}, {next: {tags: ['home', 'tags']}})
 }

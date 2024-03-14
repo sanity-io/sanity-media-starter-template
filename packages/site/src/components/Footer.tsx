@@ -3,7 +3,7 @@ const categories = Array.from({length: 5}, (_, index) => `Category ${index}`)
 export const Footer = () => {
   return (
     <nav className="px-4 md:px-16 lg:px-32 py-5">
-      <div className="flex gap-6 justify-between text-xs tracking-wide">
+      <div className="flex flex-wrap gap-6 md:justify-between text-xs tracking-wide">
         {categories.map((category) => (
           <div key={category}>
             <h3 className="mb-2 font-light uppercase text-xs tracking-wider">{category}</h3>
