@@ -2,7 +2,13 @@ type Props = {
   title: string
   subtitle: string
   coverImage: string
-  body: string
+  body:
+    | string
+    | {
+        role: 'body'
+        text: string
+        format: 'html' | 'markdown'
+      }[]
   author: {name: string}
   byline?: {name: string}[]
 }
@@ -12,6 +18,12 @@ type Props = {
  * @see https://developer.apple.com/documentation/apple_news/apple_news_format/text_styles
  */
 const componentTextStyles = {
+  default: {
+    linkStyle: {
+      textColor: '#ec5c52',
+      underline: true
+    },
+  },
   'default-title': {
     fontName: 'DINCondensed-Bold',
     fontSize: 36,
@@ -54,7 +66,14 @@ const componentTextStyles = {
   },
 }
 
-export const makeArticle = ({author, byline, title, subtitle, coverImage, body}: Props) => ({
+export const makeAppleNewsArticle = ({
+  author,
+  byline,
+  title,
+  subtitle,
+  coverImage,
+  body,
+}: Props) => ({
   version: '1.0',
   identifier: 'SMS_preview_article',
   title,
@@ -105,13 +124,22 @@ export const makeArticle = ({author, byline, title, subtitle, coverImage, body}:
           textStyle: 'authorStyle',
         }))
       : []),
-    {
-      role: 'body',
-      text: body,
-      layout: 'bodyLayout',
-      textStyle: 'bodyStyle',
-    },
+    ...(Array.isArray(body)
+      ? body
+      : [
+          {
+            role: 'body',
+            text: body,
+            layout: 'bodyLayout',
+            textStyle: 'bodyStyle',
+          },
+        ]),
   ],
+  textStyles: {
+    'default-tag-a': {
+      textColor: '#ec5c52',
+    },
+  },
   componentTextStyles,
   componentLayouts: {
     headerImageLayout: {

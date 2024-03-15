@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "@portabletext/react": "^3.0.11",
+    "@portabletext/to-html": "^2.0.5",
     "@react-email/components": "^0.0.11",
     "@react-email/render": "^0.0.6",
     "@sanity/assist": "^2.0.0",

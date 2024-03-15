@@ -11,9 +11,10 @@ import {useToast} from '@sanity/ui'
 import {toPlainText} from 'sanity-plugin-social-preview'
 import {article} from '../../../schemas/documents'
 import {imgBuilder} from '../../imageBuilder'
-import {makeArticle} from './makeAppleNewsArticle'
+import {makeAppleNewsArticle} from './makeAppleNewsArticle'
 import {getArticleContent} from '../../queries'
 import {sanityClient} from '../../sanityClient'
+import {portableTextToAppleHtml} from './portableTextToAppleHtml'
 
 type ArticleDocument = {
   headline: string
@@ -51,7 +52,7 @@ const DownloadAppleNewsJSON: DocumentActionComponent = (props: DocumentActionPro
       if (document) {
         const doc: ArticleDocument = await sanityClient.fetch(getArticleContent(document._id))
 
-        const article = makeArticle({
+        const article = makeAppleNewsArticle({
           author: {name: doc.authors[0].name},
           byline:
             doc.authors.length > 1
@@ -60,7 +61,7 @@ const DownloadAppleNewsJSON: DocumentActionComponent = (props: DocumentActionPro
           title: doc.headline,
           coverImage: imgBuilder.image(doc.coverImage).url(),
           subtitle: doc.subHeadline || '',
-          body: toPlainText(doc.content || []),
+          body: portableTextToAppleHtml(doc.content || []),
         })
 
         try {
