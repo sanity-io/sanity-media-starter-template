@@ -1,7 +1,7 @@
 # Apple News Preview
 
 Apple News articles can be generated directly through the Sanity Studio.
-The 
+The
 
 ## Previewing
 
@@ -10,8 +10,8 @@ The only official method of preview Apple News articles is through the News Prev
 The News Preview expects a JSON document titled `article.json` and a connected device with Apple News installed.
 
 - In Sanity Studio, navigate to the article you want to preview
-- Click the `Apple News` tab in the article header
-- Click `Download JSON`
+- Click the `More / …` button next to the document Publish button
+- Click `Download Apple News JSON`
 - Open the News Preview application
 - Click on the big plus (`+`) icon in the application window, or the file menu bar `File > Open…`
 - Selected the downloaded `article.json`

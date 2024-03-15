@@ -18,3 +18,15 @@ export const getEmailContent = (id: string) =>
       },
     }
  `
+
+export const getArticleContent = (id: string) =>
+  `
+    *[_id == '${id}'][0] {
+      ...,
+      "authors": authors[]-> {
+        name,
+        twitter
+      },
+      content
+    }
+ `

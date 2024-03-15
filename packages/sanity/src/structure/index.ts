@@ -1,11 +1,10 @@
-import {EditIcon, EyeOpenIcon, LinkIcon, BinaryDocumentIcon} from '@sanity/icons'
+import {EditIcon, EyeOpenIcon, LinkIcon} from '@sanity/icons'
 import {IoNewspaperOutline} from 'react-icons/io5'
 import {StructureBuilder} from 'sanity/structure'
 import EmailPreview from '../previews/emailPreview'
 
 import {SocialPreview, toPlainText} from 'sanity-plugin-social-preview'
 import ReferencedBy from '../plugins/backlings'
-import AppleNewsPreview from '../previews/appleNews'
 
 /**
  * A default document node resolver that adds a "Referenced by" tab to all documents.
@@ -92,10 +91,6 @@ const structure = (S: StructureBuilder) => {
                     .title('Social Preview')
                     .icon(EyeOpenIcon),
                   S.view.component(ReferencedBy).title('Referenced by').icon(LinkIcon),
-                  S.view
-                    .component(AppleNewsPreview)
-                    .title('Apple News')
-                    .icon(BinaryDocumentIcon),
                 ]),
             ),
         ),

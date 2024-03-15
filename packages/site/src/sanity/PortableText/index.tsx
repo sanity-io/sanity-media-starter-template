@@ -1,6 +1,5 @@
 import {PortableText, PortableTextReactComponents} from '@portabletext/react'
 import {PremiumContentBlock} from './PremiumContent'
-import {Button} from './Button'
 import {customBlockComponents} from './customComponents'
 
 const customComponents = (isMember: boolean): Partial<PortableTextReactComponents> => ({

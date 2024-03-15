@@ -11,6 +11,7 @@ import {scheduledPublishing} from '@sanity/scheduled-publishing'
 import {dashboardTool, sanityTutorialsWidget} from '@sanity/dashboard'
 import {documentListWidget} from 'sanity-plugin-dashboard-widget-document-list'
 import {workflow} from 'sanity-plugin-workflow'
+import DownloadAppleNewsJSON from './src/actions/appleNews/downloadAppleNewsJSON'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -87,6 +88,6 @@ export default defineConfig({
     templates: (templates) => templates.filter(({schemaType}) => !singletonTypes.has(schemaType)),
   },
   document: {
-    actions: [CopyHTMLToClipboard],
+    actions: [CopyHTMLToClipboard, DownloadAppleNewsJSON],
   },
 })
