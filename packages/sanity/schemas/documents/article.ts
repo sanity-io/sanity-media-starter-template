@@ -69,6 +69,20 @@ export default defineType({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
+      fields: [
+        defineField({
+          type: 'text',
+          name: 'alt',
+          title: 'Alternative text',
+          description: 'Image description for screen readers and search engines',
+          rows: 2,
+        }),
+      ],
+      options: {
+        aiAssist: {
+          imageDescriptionField: 'alt',
+        },
+      },
     }),
     defineField({
       name: 'slug',
@@ -115,6 +129,20 @@ export default defineType({
         ...basePortableTextFields,
         {
           type: 'image',
+          fields: [
+            defineField({
+              type: 'text',
+              name: 'alt',
+              title: 'Alternative text',
+              description: 'Image description for screen readers and search engines',
+              rows: 2,
+            }),
+          ],
+          options: {
+            aiAssist: {
+              imageDescriptionField: 'alt',
+            },
+          },
         },
         {
           type: 'file',

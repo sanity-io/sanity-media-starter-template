@@ -11,7 +11,7 @@ const imageBuilder = createImageUrlBuilder({
 export const urlForImage = (source: Image | undefined) => {
   // Ensure that source image contains a valid reference
   if (!source?.asset?._ref) {
-    return undefined
+    throw new Error('Image is missing a valid reference')
   }
 
   return imageBuilder?.image(source).auto('format').fit('max')
