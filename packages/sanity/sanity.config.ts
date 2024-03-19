@@ -2,7 +2,7 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
-import {media} from 'sanity-plugin-media'
+import {media, mediaAssetSource} from 'sanity-plugin-media'
 import structure, {defaultDocumentNodeResolver} from './src/structure'
 import {presentationTool} from 'sanity/presentation'
 import CopyHTMLToClipboard from './src/actions/copyHTMLToClipboard'
@@ -89,5 +89,16 @@ export default defineConfig({
   },
   document: {
     actions: [CopyHTMLToClipboard, DownloadAppleNewsJSON],
+  },
+  form: {
+    // Don't use Media plugin when selecting files only (but allow all other enabled asset sources)
+    file: {
+      assetSources: (previousAssetSources) =>
+        previousAssetSources.filter((assetSource) => assetSource !== mediaAssetSource),
+    },
+    image: {
+      assetSources: (previousAssetSources) =>
+        previousAssetSources.filter((assetSource) => assetSource === mediaAssetSource),
+    },
   },
 })
