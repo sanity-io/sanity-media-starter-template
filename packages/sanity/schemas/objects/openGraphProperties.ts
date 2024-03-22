@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity';
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
   name: 'openGraphProperties',
@@ -8,17 +8,20 @@ export default defineType({
     defineField({
       name: 'title',
       type: 'string',
-      title: 'Social Title'
+      title: 'Social Title',
     }),
     defineField({
       name: 'description',
-      type: 'string',
+      type: 'text',
       title: 'Social Description',
+      rows: 3,
+      description: 'A short description shown when the article is shared on social media',
     }),
     defineField({
       name: 'image',
       type: 'image',
       title: 'Social Image',
+      description: "Overrides the article's cover image when shared on social media",
     }),
   ],
-});
+})
