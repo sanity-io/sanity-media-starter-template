@@ -26,6 +26,10 @@ export default defineType({
       name: 'seo',
       title: 'SEO',
     },
+    {
+      name: 'feedback',
+      title: 'Feedback',
+    },
   ],
   fields: [
     defineField({
@@ -188,6 +192,21 @@ export default defineType({
       group: 'seo',
       options: {
         aiAssist: {exclude: true},
+      },
+    }),
+    defineField({
+      name: 'aiEditorFeedback',
+      title: 'AI Feedback',
+      type: 'array',
+      of: basePortableTextFields,
+      group: 'feedback',
+      readOnly: (ctx) => {
+        /**
+         * `readOnly` fields are excluded from AI Assist generation.
+         * By setting it to true, we can prevent the field from being auto-populated
+         * during initial article creation.
+         */
+        return Array.isArray(ctx.document?.content) && ctx.document?.content.length <= 2
       },
     }),
   ],
