@@ -3,7 +3,20 @@ import type {Image} from 'sanity'
 
 export type HomePagePayload = Omit<ArticlePayload, 'content' | 'quip' | 'tags'>[]
 
+type Author = {
+  _id: string
+  name: string
+  email: string
+  jobTitle: string
+  bio: string
+  twitter: string
+  linkedin: string
+}
+
 export type ArticlePayload = {
+  _updatedAt: string
+  publishDate: string
+  authors: Author[]
   _id: string
   accessLevel: 'auto' | 'premium' | 'public'
   content: PortableTextBlock[]

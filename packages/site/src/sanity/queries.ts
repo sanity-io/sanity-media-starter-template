@@ -19,6 +19,8 @@ export const homePageQuery = groq`
 export const articlesBySlugQuery = groq`
   *[_type == 'article' && slug.current == $slug][0] {
     _id,
+    _updatedAt,
+    publishDate,
     "accessLevel": coalesce(accessLevel, 'auto'),
     "slug": slug.current,
     content,
@@ -29,6 +31,15 @@ export const articlesBySlugQuery = groq`
     tags[]->{
       _id,
       name
+    },
+    "authors": authors[]-> {
+      _id,
+      name,
+      email,
+      jobTitle,
+      bio,
+      twitter,
+      linkedin
     },
     "related": (
       (

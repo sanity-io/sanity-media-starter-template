@@ -9,6 +9,8 @@ import {notFound} from 'next/navigation'
 import {cache} from 'react'
 import {ArticlePayload} from '@/sanity/types'
 import {isSubscribed} from '@/libs/auth'
+import {ArticleJsonLd} from 'next-seo'
+import {urlForImage} from '@/sanity/lib/imageBuilder'
 const ArticlePreview = dynamic(() => import('@/components/Article/ArticlePreview'))
 
 type Props = {
@@ -29,6 +31,7 @@ export async function generateMetadata(
 
   return {
     title: data?.headline || previousTitle,
+    alternates: {canonical: `/article/${params.slug}`},
     openGraph: {
       title: OGTitle,
       description: data?.og?.description || data?.subHeadline || '',
@@ -69,6 +72,25 @@ export default async function PageSlugRoute({params}: Props) {
 
   return (
     <>
+      <ArticleJsonLd
+        useAppDir={true}
+        url={`/article/${params.slug}`}
+        title={data.headline}
+        images={[urlForImage(data.coverImage)?.height(2000).width(3500).fit('crop').url()]}
+        datePublished={data.publishDate}
+        dateModified={data._updatedAt}
+        authorName={data.authors.map((author) => ({
+          type: 'Person',
+          name: author.name,
+          url:
+            author.twitter || author.linkedin || author.email
+              ? `mailto:${author.email}`
+              : undefined,
+        }))}
+        isAccessibleForFree={data.accessLevel === 'public'}
+        publisherName="Sanity Media Starter"
+        description={data.subHeadline}
+      />
       <Article isTruncated={!hasFullArticleAccess} isMember={isUserAuthenticated} data={data} />
       <TrackArticleRead accessLevel={data.accessLevel} tags={data.tags} />
     </>

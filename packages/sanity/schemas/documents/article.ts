@@ -22,8 +22,8 @@ export default defineType({
       title: 'Content',
     },
     {
-      name: 'social',
-      title: 'Social',
+      name: 'seo',
+      title: 'SEO',
     },
   ],
   fields: [
@@ -56,7 +56,7 @@ export default defineType({
       title: 'Open Graph Properties',
       type: 'openGraphProperties',
       description: '(Optional)',
-      group: 'social',
+      group: 'seo',
     }),
     defineField({
       name: 'authors',
