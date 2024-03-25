@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import {draftMode} from 'next/headers'
 import './globals.css'
 
+import {SITE_IS_INDEXABLE, getSiteUrl} from '@/libs/siteConfig'
 import {Agdasima} from 'next/font/google'
 import {ReactNode} from 'react'
 
@@ -15,27 +16,11 @@ const title = Agdasima({
   weight: ['400', '700'],
 })
 
-const getSiteUrl = () => {
-  /*
-   * Vercel sets this automatically but does not include
-   *  the protocol (`https://`), so we need to add it manually.
-   */
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
-  }
-
-  return process.env.NEXT_PUBLIC_SITE_BASE_URL || 'http://localhost:3000'
-}
-
 export const metadata: Metadata = {
   title: 'Sanity Media Starter Template',
-  /**
-   * Disable indexing and following for all pages as content will most
-   * often be scraped from third-party websites.
-   */
   robots: {
-    index: false,
-    follow: false,
+    index: SITE_IS_INDEXABLE,
+    follow: SITE_IS_INDEXABLE,
   },
   alternates: {
     canonical: '/',
