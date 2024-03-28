@@ -1,9 +1,30 @@
-import {defineType, defineField} from 'sanity'
 import {DocumentsIcon} from '@sanity/icons'
+import {Image, PortableTextBlock, defineField, defineType} from 'sanity'
+import {validateHeadlineStyle} from '../../src/utils/validators'
+import {basePortableTextFields} from '../fields'
 import authorDocument from './author'
 import tagDocument from './tag'
-import {basePortableTextFields} from '../fields'
-import {validateHeadlineStyle} from '../../src/utils/validators'
+
+export type ArticleDocument = {
+  headline: string
+  subHeadline?: string
+  authors: Array<{
+    name: string
+    twitter: string
+  }>
+  coverImage: Image
+  content: Array<{
+    _type: string
+    _key: string
+    title?: string
+    image?: Image
+    imageLink?: string
+    content?: PortableTextBlock[]
+  }>
+  slug: {
+    current: string
+  }
+}
 
 interface PrepareReturnType {
   title: string

@@ -1,38 +1,14 @@
-import {
-  DocumentActionComponent,
-  DocumentActionProps,
-  Image,
-  PortableTextBlock,
-  SanityDocument,
-} from 'sanity'
+import {DocumentActionComponent, DocumentActionProps, SanityDocument} from 'sanity'
 
 import {BinaryDocumentIcon} from '@sanity/icons'
 import {useToast} from '@sanity/ui'
-import {toPlainText} from 'sanity-plugin-social-preview'
 import {article} from '../../../schemas/documents'
 import {imgBuilder} from '../../imageBuilder'
-import {makeAppleNewsArticle} from './makeAppleNewsArticle'
 import {getArticleContent} from '../../queries'
 import {sanityClient} from '../../sanityClient'
+import {makeAppleNewsArticle} from './makeAppleNewsArticle'
 import {portableTextToAppleHtml} from './portableTextToAppleHtml'
-
-type ArticleDocument = {
-  headline: string
-  subHeadline?: string
-  authors: Array<{
-    name: string
-    twitter: string
-  }>
-  coverImage: Image
-  content: Array<{
-    _type: string
-    _key: string
-    title?: string
-    image?: Image
-    imageLink?: string
-    content?: PortableTextBlock[]
-  }>
-}
+import {ArticleDocument} from '../../../schemas/documents/article'
 
 /**
  * A document action component that allows downloading an article as Apple News JSON.
