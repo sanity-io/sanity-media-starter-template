@@ -23,7 +23,7 @@ This example Sanity Studio is tailored for media/newspaper content.
   - Note that for this to work locally, you will need to have the NextJS dev server running alongside the Sanity Studio dev server.
 - Example: Headline editorial style guide enforcement
   - There is a simple field validator which checks whether a Headline is Title Case or not. This is to demonstrate capability for editorial teams to define and automatically
-  enforce writing style guides. See `./src/utils/validators.ts` for details.
+    enforce writing style guides. See `./src/utils/validators.ts` for details.
 - AI Assist plugin is included, however the rules will need to be added for each project deployment.
   - E.g. for `Social Title`: "Write a click-bait-y title for the following article. It will be shared on social media, and should be optimized for intriguing readers and engagement. The title should be no longer than 164 characters in length."
 
@@ -43,6 +43,23 @@ This is done using the [React Email](https://react.email) library.
 
 For demo purposes we only support copying the generated HTML to the clipboard (found under the dropdown menu by the Publish button). However the Studio could easily be extended to send the emails using an email sending service such as [Amazon SES](https://aws.amazon.com/ses/).
 
+## Preflight Checks
+
+Before publishing articles, you can run several automated checks to ensure that the article does not contain
+critical errors.
+
+These can be run using the `Preflight` tab in the `Article` editor panel of the Studio.
+
+### Configuration
+
+These checks are run using [DataForSEO](https://dataforseo.com) APIs, specifically the [Instant Pages (Live)](https://docs.dataforseo.com/v3/on_page/instant_pages) endpoint.
+
+Usage of this service requires registration and creation of an API key, however usage with placeholder/sandbox data doesn't require payment.
+
+To create and set an API key, [follow the instructions here](https://docs.dataforseo.com/v3/auth/).
+Then set the value in the `Secrets` tab inside the Sanity studio.
+
+Secrets are managed using the [`studio-secrets` plugin](https://github.com/sanity-io/sanity-studio-secrets), so it only needs to be set once by the project administrator, and can be used by all content editors.
 
 ## Studio highlights
 

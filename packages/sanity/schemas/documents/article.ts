@@ -6,6 +6,7 @@ import authorDocument from './author'
 import tagDocument from './tag'
 
 export type ArticleDocument = {
+  _id: string
   headline: string
   subHeadline?: string
   authors: Array<{

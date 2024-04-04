@@ -1,4 +1,5 @@
 import {ArticleDocument} from '../../../schemas/documents/article'
+import {SEOAudit} from './SEOAudit'
 import {LinkValidation} from './ValidateLinks'
 
 export type PreflightProps = {
@@ -18,6 +19,16 @@ export const Preflight = (props: PreflightProps) => {
       }}
     >
       <LinkValidation document={props.document.displayed} />
+
+      <hr
+        style={{
+          margin: '32px 0',
+          border: 'none',
+          borderBottom: '1px solid var(--card-border-color)',
+        }}
+      />
+
+      <SEOAudit document={props.document.displayed} />
     </div>
   )
 }
