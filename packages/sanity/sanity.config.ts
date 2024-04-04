@@ -12,6 +12,7 @@ import {dashboardTool, sanityTutorialsWidget} from '@sanity/dashboard'
 import {documentListWidget} from 'sanity-plugin-dashboard-widget-document-list'
 import {workflow} from 'sanity-plugin-workflow'
 import DownloadAppleNewsJSON from './src/actions/appleNews/downloadAppleNewsJSON'
+import { secretsToolbar } from './src/plugins/Secrets/SecretsPlugin'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -82,6 +83,7 @@ export default defineConfig({
         },
       },
     }),
+    secretsToolbar(),
   ],
   schema: {
     types: schemaTypes,
