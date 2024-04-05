@@ -3,7 +3,7 @@ import {getArticleLinks, getPageHTML} from '../utils/dom/crawl'
 import {parseArticleContent} from './htmlToArticle'
 import {ArticleDereferenced, Article} from '../blocks/article'
 
-const adapter = sqliteClient()
+const adapter = await sqliteClient()
 
 /**
  * Given a site URL, find article links and fetch the HTML for each article.
@@ -21,7 +21,7 @@ const fetchSourceArticles = async () => {
   // Limit the number of articles we fetch
   let limit = 100
   console.log(`⚠️ Limiting import to maximum of ${limit} articles`)
-  
+
   const siteSegment = new URL(process.env.SITE_URL).pathname
   const regex = new RegExp(`^${siteSegment}`)
 
