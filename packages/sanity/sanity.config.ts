@@ -12,7 +12,7 @@ import {dashboardTool, sanityTutorialsWidget} from '@sanity/dashboard'
 import {documentListWidget} from 'sanity-plugin-dashboard-widget-document-list'
 import {workflow} from 'sanity-plugin-workflow'
 import DownloadAppleNewsJSON from './src/actions/appleNews/downloadAppleNewsJSON'
-import { secretsToolbar } from './src/plugins/Secrets/SecretsPlugin'
+import {secretsToolbar} from './src/plugins/Secrets/SecretsPlugin'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -42,9 +42,25 @@ export default defineConfig({
 
   plugins: [
     structureTool({
+      title: 'Content',
       structure,
       defaultDocumentNode: defaultDocumentNodeResolver,
     }),
+    presentationTool({
+      title: 'Preview',
+      previewUrl: {
+        origin: SITE_ORIGIN,
+        draftMode: {
+          enable: '/api/draft',
+        },
+      },
+    }),
+    workflow({
+      schemaTypes: ['article', 'newsletter'],
+      // @see https://github.com/sanity-io/sanity-plugin-workflow
+      // states: [],
+    }),
+    scheduledPublishing(),
     assist(),
     dashboardTool({
       widgets: [
@@ -67,22 +83,8 @@ export default defineConfig({
         sanityTutorialsWidget(),
       ],
     }),
-    workflow({
-      schemaTypes: ['article', 'newsletter'],
-      // @see https://github.com/sanity-io/sanity-plugin-workflow
-      // states: [],
-    }),
-    scheduledPublishing(),
     visionTool(),
     media(),
-    presentationTool({
-      previewUrl: {
-        origin: SITE_ORIGIN,
-        draftMode: {
-          enable: '/api/draft',
-        },
-      },
-    }),
     secretsToolbar(),
   ],
   schema: {
