@@ -12,14 +12,16 @@ export const Article = z.object({
   // This should be a stable and predictable ID that can be used to reference this author
   _id: z.string(),
   _type: z.literal('article'),
-  headline: z.string().min(1),
-  subHeadline: z.string().min(1).optional(),
-  quip: z.string().min(1).optional(),
+  headline: z.string().min(1).trim(),
+  subHeadline: z.string().trim().min(1).optional(),
+  quip: z.string().trim().min(1).optional(),
   coverImage: ImageRef.optional(),
   slug: z.object({
     current: z.string().min(1).trim(),
   }),
-  publishDate: z.string().datetime(),
+  publishDate: z.string().datetime({
+    offset: true,
+  }),
   content: z.array(BlockEditorContent),
   tags: z.array(Tag).optional(),
   authors: z.array(Author).min(1),

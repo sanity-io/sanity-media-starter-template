@@ -1,8 +1,9 @@
 import {type Article} from '../blocks/article'
 import {Author} from '../blocks/author'
 import {Tag} from '../blocks/tag'
-import { sanitizeId } from '../utils'
+import {sanitizeId} from '../utils'
 import {createDocument} from '../utils/dom'
+import {getArticleJsonLd} from '../utils/jsonld'
 import {htmlToBlockContent} from './htmlToBlockContent'
 import {AuthorJSONSchema} from './validators'
 
@@ -15,8 +16,9 @@ export const parseArticleContent = async ({
 }): Promise<Article> => {
   const doc = createDocument(htmlContent)
 
-  const JSONSchema =
-    JSON.parse(doc.querySelector('script[type="application/ld\\+json"]').innerHTML) ?? {}
+  const JSONSchema = await getArticleJsonLd(
+    doc.querySelector('script[type="application/ld\\+json"]').innerHTML,
+  )
 
   if (!JSONSchema) {
     throw new Error(`No JSON Schema found`)
@@ -24,9 +26,10 @@ export const parseArticleContent = async ({
 
   const coverImage =
     JSONSchema.image?.url ||
+    JSONSchema.primaryImageOfPage?.url ||
     doc.querySelector(process.env.SELECTOR_COVER_IMAGE)?.getAttribute('src')
-  const title = JSONSchema.headline
-  const subHeadline = doc.querySelector(process.env.SELECTOR_SUBTITLE)?.textContent ?? ''
+  const title = JSONSchema.headline ?? doc.querySelector(process.env.SELECTOR_TITLE)?.textContent
+  const subHeadline = doc.querySelector(process.env.SELECTOR_SUBTITLE)?.textContent
   const publishDate = JSONSchema?.datePublished
 
   const rawTags = JSONSchema?.keywords ?? doc.querySelector(process.env.SELECTOR_TAGS)?.content
@@ -41,7 +44,13 @@ export const parseArticleContent = async ({
 
   const authors: Author[] = []
 
-  JSONSchema.author.map((author: unknown) => {
+  const unprocessedAuthors = Array.isArray(JSONSchema.author)
+    ? JSONSchema.author
+    : JSONSchema.author
+      ? [JSONSchema.author]
+      : []
+
+  unprocessedAuthors.map((author: unknown) => {
     const data = AuthorJSONSchema.parse(author)
     // Remove leading slash, and make author id kebab case
     const authorID = (data.url ? new URL(data.url).pathname : data.name)

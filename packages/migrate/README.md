@@ -43,6 +43,7 @@ For scraping content we use two approaches:
 - using CSS selectors for values that don’t exist in the JSON-LD schema
 
 - `SELECTOR_ARTICLE_LINKS`: CSS selector used to find article link to be scraped on the homepage
+- `SELECTOR_TITLE`: article's primary headline
 - `SELECTOR_SUBTITLE`: article subtitle text
 - `SELECTOR_ARTICLE_CONTENT`: element containing article content. The inner HTML
   will be parsed and imported as PortableText block

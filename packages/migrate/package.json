@@ -12,6 +12,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@thalesrc/js-utils": "^2.12.0",
+    "@types/jsonld": "^1.5.13",
     "bun-types": "latest",
     "jsdom": "^24.0.0",
     "json-nd": "^1.0.0",
@@ -19,6 +20,7 @@
     "zod": "^3.22.4"
   },
   "dependencies": {
+    "jsonld": "^8.3.2",
     "studio": "^1.0.0"
   }
 }
