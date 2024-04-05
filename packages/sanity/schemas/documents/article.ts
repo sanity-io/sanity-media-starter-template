@@ -241,7 +241,12 @@ export default defineType({
     prepare({title, publishDate, image}): PrepareReturnType {
       return {
         title: title,
-        subtitle: publishDate ?? 'No publish date',
+        subtitle: publishDate
+          ? new Date(publishDate).toLocaleDateString('en-US', {
+              dateStyle: 'long',
+              timeZone: 'UTC',
+            })
+          : 'No publish date',
         media: image,
       }
     },
