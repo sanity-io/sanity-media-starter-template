@@ -77,6 +77,10 @@ const prepareArticle = async (slug: string) => {
     console.log(`✅ Imported: ${slug}`)
   } catch (error) {
     console.log(`❌ Failed to import: ${slug}`)
+    if (process.env.DEBUG) {
+      console.error(error)
+    }
+
     // TODO: add failed import to database
   }
 }

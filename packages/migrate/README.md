@@ -48,6 +48,15 @@ For scraping content we use two approaches:
   will be parsed and imported as PortableText block
 - `SELECTOR_AUTHOR`: element containing the article author. Used to find the profile photo.
 
+### Debugging
+
+By default, content import and parsing errors are truncated.
+To see the full Zod error messages, set a `DEBUG` environment variable before running the migrate command.
+
+```sh
+DEBUG=true npm run import -w migrate
+```
+
 ## Architecture
 
 The migration package is built with the concept of data "adapters", and is designed
