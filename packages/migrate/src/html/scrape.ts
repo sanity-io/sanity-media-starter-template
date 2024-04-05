@@ -30,10 +30,10 @@ const fetchSourceArticles = async () => {
       break
     }
 
-    // Get slug from URL, drop leading slash
+    // Get slug from URL, drop leading and trailing slash
     const resolvedHref = url.startsWith('http') ? new URL(url) : new URL(url, process.env.SITE_URL)
     const resolvedUrl = resolvedHref.origin + resolvedHref.pathname
-    const slug = resolvedHref.pathname.replace(regex, '').replace(/^\//, '')
+    const slug = resolvedHref.pathname.replace(regex, '').replace(/^\/+/, '').replace(/\/+$/, '')
 
     // If we already have a local cache of the article, don't re-fetch it
     const maybeExistingArticle = await adapter.getSourceArticleById(slug)

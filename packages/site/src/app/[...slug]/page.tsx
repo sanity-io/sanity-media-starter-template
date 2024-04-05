@@ -13,6 +13,10 @@ import {ArticleJsonLd} from 'next-seo'
 import {urlForImage} from '@/sanity/lib/imageBuilder'
 const ArticlePreview = dynamic(() => import('@/components/Article/ArticlePreview'))
 
+const getArticleSlug = (slug: string | string[]) => {
+  return Array.isArray(slug) ? slug.join('/') : slug
+}
+
 type Props = {
   params: {slug: string}
 }
@@ -21,7 +25,8 @@ export async function generateMetadata(
   {params}: Props,
   parentPromise: ResolvingMetadata,
 ): Promise<Metadata> {
-  const {data} = await loadArticle(params.slug)
+  const slug = getArticleSlug(params.slug)
+  const {data} = await loadArticle(slug)
   const parent = await parentPromise
 
   const previousTitle = parent.title || ''
@@ -31,7 +36,7 @@ export async function generateMetadata(
 
   return {
     title: data?.headline || previousTitle,
-    alternates: {canonical: `/article/${params.slug}`},
+    alternates: {canonical: slug},
     openGraph: {
       title: OGTitle,
       description: data?.og?.description || data?.subHeadline || '',
@@ -53,7 +58,8 @@ const getData = (hasFullArticleAccess: boolean, data: ArticlePayload | null) => 
 }
 
 export default async function PageSlugRoute({params}: Props) {
-  const initial = await loadArticle(params.slug)
+  const slug = getArticleSlug(params.slug)
+  const initial = await loadArticle(slug)
 
   const isUserAuthenticated = await isSubscribed()
   const hasFullArticleAccess = initial.data
@@ -63,7 +69,9 @@ export default async function PageSlugRoute({params}: Props) {
   const data: ArticlePayload | null = cache(getData)(hasFullArticleAccess, initial.data)
 
   if (draftMode().isEnabled) {
-    return <ArticlePreview params={params} initial={initial} isMember={isUserAuthenticated} />
+    return (
+      <ArticlePreview params={{...params, slug}} initial={initial} isMember={isUserAuthenticated} />
+    )
   }
 
   if (!data) {
@@ -74,7 +82,7 @@ export default async function PageSlugRoute({params}: Props) {
     <>
       <ArticleJsonLd
         useAppDir={true}
-        url={`/article/${params.slug}`}
+        url={slug}
         title={data.headline}
         images={[urlForImage(data.coverImage)?.height(2000).width(3500).fit('crop').url()]}
         datePublished={data.publishDate}
