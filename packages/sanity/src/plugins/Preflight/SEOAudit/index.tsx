@@ -33,7 +33,7 @@ export const SEOAudit = (props: Props) => {
 
     try {
       const results = await getPageLiveResult(apiKey)(
-        baseUrl + props.document.slug.current,
+        `${isLocalhost ? 'https://example.org' : baseUrl}/${props.document.slug.current}`,
         isDraft,
       )
       const result = results?.tasks?.[0]?.result?.[0]?.items?.[0]?.checks
