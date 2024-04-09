@@ -1,15 +1,14 @@
-import { LinkCheckResult } from '.';
+import {LinkCheckResult} from '.'
 
 export const validateLink = async (url: string): Promise<LinkCheckResult> => {
   try {
-    const response = await fetch(url, { method: 'HEAD' });
+    await fetch(url, {method: 'HEAD', mode: 'no-cors'})
 
     return {
-      status: response.ok ? 'success' : 'error',
-      message: `${response.status} ${response.statusText}`,
-    };
+      status: 'success',
+    }
   } catch (error) {
-    console.log(error);
-    return { status: 'error', message: error instanceof Error ? error.message : 'Unknown error' };
+    console.log(error)
+    return {status: 'error', message: error instanceof Error ? error.message : 'Unknown error'}
   }
-};
+}
