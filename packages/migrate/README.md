@@ -29,6 +29,7 @@ Then to write the data as an ND-JSON file ready for import using Sanity's CLI to
 `npm run export`
 
 And finally to upload to Sanity:
+
 - navigate to the folder containing your Sanity configuration
 - run `npx sanity dataset ../packages/migrate/data/sanity-blog.ndjson production`
 
@@ -42,12 +43,14 @@ For scraping content we use two approaches:
 - using Schema.org values if available, found in most website `head` content.
 - using CSS selectors for values that don’t exist in the JSON-LD schema
 
-- `SELECTOR_ARTICLE_LINKS`: CSS selector used to find article link to be scraped on the homepage
-- `SELECTOR_TITLE`: article's primary headline
-- `SELECTOR_SUBTITLE`: article subtitle text
-- `SELECTOR_ARTICLE_CONTENT`: element containing article content. The inner HTML
-  will be parsed and imported as PortableText block
-- `SELECTOR_AUTHOR`: element containing the article author. Used to find the profile photo.
+| Selector                   | Description                                                                                          |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `SELECTOR_ARTICLE_LINKS`   | CSS selector used to find article link to be scraped on the homepage                                 |
+| `SELECTOR_TITLE`           | Article's primary headline                                                                           |
+| `SELECTOR_SUBTITLE`        | Article subtitle text                                                                                |
+| `SELECTOR_ARTICLE_CONTENT` | Element containing article content. The inner HTML will be parsed and imported as PortableText block |
+| `SELECTOR_AUTHOR`          | Element containing the article author. Used to find the profile photo.                               |
+| `SELECTOR_TAGS`            | Element containing article category tags                                                             |
 
 ### Debugging
 
@@ -62,6 +65,7 @@ DEBUG=true npm run import -w migrate
 
 The migration package is built with the concept of data "adapters", and is designed
 to be modular with three primary components:
+
 - Input: source of content to be imported. This could be a public website, a
   legacy CMS database, etc.
 - Data storage: used to store transformed data before ingesting into a Sanity dataset
@@ -73,6 +77,7 @@ The core of the transformations are powered by [Zod validators](https://zod.dev)
 that the data being imported matches the expected Sanity document schema.
 
 Currently there are only two adapters defined:
+
 - Input: HTML from public websites
 - Data storage: SQLite
 - Output: ND-JSON
@@ -90,6 +95,7 @@ The content is generated using [Faker.js](https://fakerjs.dev) so won't be actua
 articles, however it will conform to the expected schema.
 
 To import into your Sanity project:
+
 - navigate to the folder containing your Sanity configuration
 - run `npx sanity dataset ../packages/migrate/data/db.ndjson production`
 
