@@ -3,16 +3,27 @@
   "private": true,
   "version": "1.0.0",
   "main": "package.json",
-  "workspaces": ["./packages/*"],
   "license": "UNLICENSED",
   "scripts": {
-    "setup": "node ./scripts/initProject.js"
+    "setup": "node ./scripts/initProject.js",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "prepare": "husky"
   },
-  "keywords": ["sanity"],
+  "keywords": [
+    "sanity"
+  ],
   "prettier": {
     "semi": false,
     "printWidth": 100,
     "bracketSpacing": false,
     "singleQuote": true
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "devDependencies": {
+    "husky": "^9.0.11"
   }
 }

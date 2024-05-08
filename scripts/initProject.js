@@ -81,7 +81,7 @@ function updatePackageEnvs(projectId, datasetName) {
   }
 
   console.log('Updating package env variables')
-  updateEnv(projectId, datasetName, path.resolve(__dirname, '..', 'packages', 'site'))
-  updateEnv(projectId, datasetName, path.resolve(__dirname, '..', 'packages', 'sanity'))
+  updateEnv(projectId, datasetName, path.resolve(__dirname, '..', 'apps', 'site'))
+  updateEnv(projectId, datasetName, path.resolve(__dirname, '..', 'apps', 'sanity'))
   updateEnv(projectId, datasetName, path.resolve(__dirname, '..', 'packages', 'migrate'))
 }
