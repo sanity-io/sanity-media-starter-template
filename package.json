@@ -19,6 +19,7 @@
     "bracketSpacing": false,
     "singleQuote": true
   },
+  "packageManager": "npm@10.7.0",
   "workspaces": [
     "packages/*",
     "apps/*"
