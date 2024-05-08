@@ -2,11 +2,10 @@ import {EditIcon, EyeOpenIcon, LinkIcon, RocketIcon} from '@sanity/icons'
 import {IoNewspaperOutline} from 'react-icons/io5'
 import {StructureBuilder} from 'sanity/structure'
 import EmailPreview from '../previews/emailPreview'
-
 import {SocialPreview, toPlainText} from 'sanity-plugin-social-preview'
 import ReferencedBy from '../plugins/backlings'
 import { Preflight } from '../plugins/Preflight'
-
+import Charts from "./charts";
 /**
  * A default document node resolver that adds a "Referenced by" tab to all documents.
  * This tab shows all documents that reference the current document, e.g.
@@ -18,7 +17,7 @@ export const defaultDocumentNodeResolver = (S: StructureBuilder) =>
     S.view.component(ReferencedBy).title('Referenced by').icon(LinkIcon),
   ])
 
-const excludedSchemaTypes = ['media.tag', 'newsletter', 'article', 'workflow.metadata']
+const excludedSchemaTypes = ['media.tag', 'newsletter', 'article', 'workflow.metadata', 'chart.bar', 'chart.heatmap']
 
 /**
  * An invalid document ID guaranteed to not exist in the dataset
@@ -123,6 +122,7 @@ const structure = (S: StructureBuilder) => {
                 ]),
             ),
         ),
+      Charts(S)
     ])
 }
 

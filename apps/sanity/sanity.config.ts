@@ -13,6 +13,7 @@ import {documentListWidget} from 'sanity-plugin-dashboard-widget-document-list'
 import {workflow} from 'sanity-plugin-workflow'
 import DownloadAppleNewsJSON from './src/actions/appleNews/downloadAppleNewsJSON'
 import {secretsToolbar} from './src/plugins/Secrets/SecretsPlugin'
+import { colorInput } from '@sanity/color-input'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID
 const DATASET = process.env.SANITY_STUDIO_DATASET
@@ -86,6 +87,7 @@ export default defineConfig({
     visionTool(),
     media(),
     secretsToolbar(),
+    colorInput(),
   ],
   schema: {
     types: schemaTypes,

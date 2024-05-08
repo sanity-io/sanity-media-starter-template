@@ -23,7 +23,18 @@ export const articlesBySlugQuery = groq`
     publishDate,
     "accessLevel": coalesce(accessLevel, 'auto'),
     "slug": slug.current,
-    content,
+    content[] {
+      ...,
+      _type == 'barChart' => {
+        "chart": *[_type == "chart.bar" && _id == ^._ref][0] {
+          ...,
+          "data": data {
+            ...,
+            "fileUrl": *[_id == ^.asset._ref][0].url
+          }
+        }
+      }
+    },
     coverImage,
     headline,
     quip,

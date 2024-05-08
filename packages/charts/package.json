@@ -1,0 +1,19 @@
+{
+  "name": "@media-starter/charts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/papaparse": "^5.3.14",
+    "papaparse": "^5.4.1",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@visx/visx": "^3.10.2",
+    "@vx/pattern": "^0.0.199"
+  }
+}

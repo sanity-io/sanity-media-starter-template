@@ -10,8 +10,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@media-starter/charts": "*",
     "@portabletext/react": "^3.0.17",
     "@sanity/client": "^6.15.11",
+    "@sanity/color-input": "^3.1.1",
     "@sanity/demo": "^2.0.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/overlays": "^2.1.1",

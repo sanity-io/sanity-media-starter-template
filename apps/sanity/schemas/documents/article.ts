@@ -192,6 +192,18 @@ export default defineType({
           type: 'file',
         },
         {
+          name: 'barChart',
+          title: 'Bar Chart',
+          type: 'reference',
+          to: {type: 'chart.bar'}
+        },
+        {
+          name: 'heatmapChart',
+          title: 'Heatmap Chart',
+          type: 'reference',
+          to: {type: 'chart.heatmap'}
+        },
+        {
           type: 'premiumContent',
           options: {
             aiAssist: {exclude: true},

@@ -6,7 +6,7 @@ const nextConfig = {
   experimental: {
     taint: true,
   },
-
+  transpilePackages: ['@media-starter/charts'],
   async headers() {
     return [
       {
