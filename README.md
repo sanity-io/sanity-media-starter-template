@@ -5,8 +5,8 @@ and NextJS project by importing articles from an existing website.
 
 Please see the various sub-package READMEs for more detailed information.
 
-- [Sanity](./packages/sanity/README.md): Sanity Studio and schema
-- [Site](./packages/site/README.md): NextJS site
+- [Sanity](./apps/sanity/README.md): Sanity Studio and schema
+- [Site](./apps/site/README.md): NextJS site
 - [Migrate](./packages/migrate/README.md): import articles from an existing website
 
 ## Quick Start
@@ -21,6 +21,7 @@ Once you've cloned this repository, you'll need to:
 
 ```sh
 npm install
+npm install turbo --global
 ```
 
 ### Link to Sanity project
@@ -45,10 +46,11 @@ Copy the token and paste it into your `.env` files, both in the `site` and `stud
 
 ### Run the project
 
-The NextJS site and the Studio run on different servers, so you will need to run them in separate terminal windows.
+To run the project in development mode, use the following command. This monorepo uses [Turborepo](https://turbo.build/) to manage the build and development processes.
 
-- Run Sanity Studio: `npm run dev -w studio`
-- Run NextJS site: `npm run dev -w site`
+```sh
+npm run dev
+```
 
 ## TODO
 
