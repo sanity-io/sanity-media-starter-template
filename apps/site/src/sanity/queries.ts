@@ -70,3 +70,11 @@ export const topTagsQuery = groq`
     "referenceCount": count(*[_type == "article" && references(^._id)])
   } | order(referenceCount desc)[0...5]
 `
+
+export const privacyPolicyQuery = groq`
+  *[_type == "web.privacyPolicy"][0]
+`
+
+export const termsAndConditionsQuery = groq`
+  *[_type == "web.termsAndConditions"][0]
+`
