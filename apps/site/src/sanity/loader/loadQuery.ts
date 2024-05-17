@@ -8,7 +8,8 @@ import {
   homePageQuery,
   topTagsQuery,
   privacyPolicyQuery,
-  termsAndConditionsQuery
+  termsAndConditionsQuery,
+  globalNavigationQuery
 } from '@/sanity/queries'
 import {token} from '@/sanity/lib/token'
 import {
@@ -16,7 +17,8 @@ import {
   HomePagePayload, 
   TopTagsPayload,
   PrivacyPolicyPayload,
-  TermsAndConditionsPayload
+  TermsAndConditionsPayload,
+  GlobalNavigationPayload
 } from '@/sanity/types'
 
 import {queryStore} from './createQueryStore'
@@ -87,4 +89,8 @@ export function loadPrivacyPolicy() {
 
 export function loadTermsAndConditions() {
   return loadQuery<TermsAndConditionsPayload | null>(termsAndConditionsQuery, {}, {next: {tags: ['web.termsAndConditions']}})
+}
+
+export function loadGlobalNavigation() {
+  return loadQuery<GlobalNavigationPayload | null>(globalNavigationQuery, {}, {next: {tags: ['web.globalNavigation']}})
 }

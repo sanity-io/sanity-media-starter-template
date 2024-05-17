@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@portabletext/react": "^3.0.17",
+    "@radix-ui/react-navigation-menu": "^1.1.4",
     "@sanity/client": "^6.15.11",
     "@sanity/demo": "^2.0.0",
     "@sanity/image-url": "^1.0.2",
