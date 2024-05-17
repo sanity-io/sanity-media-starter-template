@@ -3,13 +3,12 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { FaCaretDown } from "react-icons/fa";
 import { GlobalNavigationPayload } from '@/sanity/types';
 import Link from 'next/link';
-import classNames from 'classnames';
 
 const generateUrl = (subItem: { _type: string; slug?: string; _ref: string; _id?: string }) => {
   if (subItem._type === "Tag") {
-    return `/tags/${subItem.slug || ''}`;
+    return `/tag/${subItem.slug || ''}`;
   } else if (subItem._type === "Article") {
-    return `/articles/${subItem.slug || ''}`;
+    return `/${subItem.slug || ''}`;
   }
   return "#";
 };

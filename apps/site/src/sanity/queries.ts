@@ -91,7 +91,7 @@ export const globalNavigationQuery = groq`
         _ref,
         "slug": select(
           _type == "Article" => *[_type == "article" && _id == ^._ref][0].slug.current,
-          _type == "Tag" => *[_type == "tag" && _id == ^._ref][0].slug.current
+          _type == "Tag" => *[_type == "tag" && _id == ^._ref][0].slug. current
         ),
         "label": select(
           _type == "Article" => *[_type == "article" && _id == ^._ref][0].headline,
@@ -99,6 +99,7 @@ export const globalNavigationQuery = groq`
         )
       }
     }
+  }
 `
 
 /**
