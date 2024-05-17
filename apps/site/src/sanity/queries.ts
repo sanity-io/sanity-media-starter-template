@@ -67,6 +67,7 @@ export const topTagsQuery = groq`
   *[_type == "tag"]{
     _id,
     name,
+    "slug": slug.current,
     "referenceCount": count(*[_type == "article" && references(^._id)])
   } | order(referenceCount desc)[0...5]
 `
@@ -98,5 +99,23 @@ export const globalNavigationQuery = groq`
         )
       }
     }
+`
+
+/**
+ * Fetch a tag and first 10 articles by its slug/URL and its articles
+ */
+export const tagWithArticlesQuery = groq`
+  *[_type == "tag" && slug.current == $slug][0] {
+    _id,
+    name,
+    "slug": slug.current,
+    "articles": *[_type == "article" && references(^._id)] {
+      _id,
+      "slug": slug.current,
+      coverImage,
+      headline,
+      subHeadline,
+      "accessLevel": coalesce(accessLevel, 'auto'),
+    } | order(publishedAt desc, _createdAt desc)[0...10]
   }
 `

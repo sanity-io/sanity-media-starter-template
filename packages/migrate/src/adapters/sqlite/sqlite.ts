@@ -53,15 +53,16 @@ export const actions = (db: Database): DataAdapter => {
   }
 
   const addTag = db.prepare(`
-    INSERT INTO tags (id, name)
-    VALUES (?, ?)
+    INSERT INTO tags (id, name, slug)
+    VALUES (?, ?, ?)
     ON CONFLICT (id) DO UPDATE SET
-      name = excluded.name
+      name = excluded.name,
+      slug = excluded.slug
   `)
 
   const addTags = (tags: Tag[]) => {
     tags.map((tag) => {
-      addTag.run(tag._id, tag.name)
+      addTag.run(tag._id, tag.name, tag.slug.current)
     })
   }
 

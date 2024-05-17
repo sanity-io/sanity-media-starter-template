@@ -5,6 +5,9 @@ export const Tag = z.object({
   _id: z.string(),
   _type: z.literal('tag'),
   name: z.string().min(1).trim(),
+  slug: z.object({
+    current: z.string().min(1).trim(),
+  }),
 })
 
 export type Tag = z.infer<typeof Tag>
