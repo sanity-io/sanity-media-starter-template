@@ -9,7 +9,9 @@ export const PrivacyPolicy = ({data}: {data: PrivacyPolicyPayload}) => {
         <div className='text-4xl font-bold'>Privacy Policy</div>
         <div className='text-md'>Effective {effectiveDate}</div>
       </div>
-      <CustomPortableText isMember={false} value={content ?? []} />
+      <main className='prose'>
+        <CustomPortableText value={content ?? []} />
+      </main>
     </div>
   )
 }
