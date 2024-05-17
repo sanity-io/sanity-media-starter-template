@@ -1,7 +1,7 @@
 import {EditIcon, EyeOpenIcon, LinkIcon, RocketIcon} from '@sanity/icons'
 import {IoNewspaperOutline} from 'react-icons/io5'
 import { TbWorldWww } from "react-icons/tb";
-import { MdOutlinePrivacyTip } from "react-icons/md";
+import { MdOutlinePrivacyTip, MdNavigation } from "react-icons/md";
 import { GoLaw } from "react-icons/go";
 
 import {StructureBuilder} from 'sanity/structure'
@@ -134,6 +134,15 @@ const structure = (S: StructureBuilder) => {
           S.list()
             .title('Web')
             .items([
+              S.documentTypeListItem('web.globalNavigation')
+                .title("Global Navigation")
+                .id("web.globalNavigation")
+                .icon(MdNavigation)
+                .child(
+                  S.document()
+                    .schemaType("web.globalNavigation")
+                    .documentId("web.globalNavigation")
+                ),
               S.documentTypeListItem('web.privacyPolicy')
                 .title("Privacy Policy")
                 .id("web.privacyPolicy")

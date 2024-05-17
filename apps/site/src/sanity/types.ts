@@ -55,3 +55,16 @@ type PolicyPayload = {
 
 export type PrivacyPolicyPayload = PolicyPayload
 export type TermsAndConditionsPayload = PolicyPayload
+
+export type GlobalNavigationPayload = {
+  _id: string
+  items: {
+    _type: 'singleItem' | 'dropdownItem'
+    label: string
+    url?: string
+    list?: {
+      _ref: string
+      _type: 'Tag' | 'Article'
+    }[]
+  }[]
+}

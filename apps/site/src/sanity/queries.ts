@@ -78,3 +78,25 @@ export const privacyPolicyQuery = groq`
 export const termsAndConditionsQuery = groq`
   *[_type == "web.termsAndConditions"][0]
 `
+
+export const globalNavigationQuery = groq`
+  *[_type == "web.globalNavigation"][0] {
+    items[] {
+      _type,
+      label,
+      url,
+      list[] {
+        _type,
+        _ref,
+        "slug": select(
+          _type == "Article" => *[_type == "article" && _id == ^._ref][0].slug.current,
+          _type == "Tag" => *[_type == "tag" && _id == ^._ref][0].slug.current
+        ),
+        "name": select(
+          _type == "Article" => *[_type == "article" && _id == ^._ref][0].headline,
+          _type == "Tag" => *[_type == "tag" && _id == ^._ref][0].name
+        )
+      }
+    }
+  }
+`
