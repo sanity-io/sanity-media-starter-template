@@ -14,7 +14,7 @@ export const UserSignIn = () => {
   return (
     <div>
       <button onClick={handleFormSubmit} className="font-bold underline hover:no-underline">
-        Sign in
+        Login
       </button>
     </div>
   )

@@ -65,6 +65,8 @@ export type GlobalNavigationPayload = {
     list?: {
       _ref: string
       _type: 'Tag' | 'Article'
+      slug: string
+      label: string
     }[]
   }[]
 }
