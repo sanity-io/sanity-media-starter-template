@@ -14,7 +14,7 @@ export const runtime = 'edge'
 
 export async function GET(req: Request) {
   const fontData = await fetch(
-    new URL('../../../../public/assets/Agdasima-Bold.ttf', import.meta.url)
+    new URL('../../../../public/fonts/Agdasima-Bold.ttf', import.meta.url)
   ).then((res) => res.arrayBuffer())
 
   /**

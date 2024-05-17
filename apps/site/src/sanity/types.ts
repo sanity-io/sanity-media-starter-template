@@ -46,3 +46,12 @@ export type TopTagsPayload = {
   name: string
   referenceCount: number
 }[]
+
+type PolicyPayload = {
+  _id: string
+  effectiveDate: string
+  content: PortableTextBlock[]
+}
+
+export type PrivacyPolicyPayload = PolicyPayload
+export type TermsAndConditionsPayload = PolicyPayload

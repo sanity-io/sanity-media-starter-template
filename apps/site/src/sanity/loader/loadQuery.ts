@@ -3,9 +3,21 @@ import 'server-only'
 import {draftMode} from 'next/headers'
 
 import {client} from '@/sanity/lib/client'
-import {articlesBySlugQuery, homePageQuery, topTagsQuery} from '@/sanity/queries'
+import {
+  articlesBySlugQuery, 
+  homePageQuery,
+  topTagsQuery,
+  privacyPolicyQuery,
+  termsAndConditionsQuery
+} from '@/sanity/queries'
 import {token} from '@/sanity/lib/token'
-import {ArticlePayload, HomePagePayload, TopTagsPayload} from '@/sanity/types'
+import {
+  ArticlePayload, 
+  HomePagePayload, 
+  TopTagsPayload,
+  PrivacyPolicyPayload,
+  TermsAndConditionsPayload
+} from '@/sanity/types'
 
 import {queryStore} from './createQueryStore'
 
@@ -67,4 +79,12 @@ export function loadArticle(slug: string) {
 
 export function loadTopTags() {
   return loadQuery<TopTagsPayload | null>(topTagsQuery, {}, {next: {tags: ['home', 'tags']}})
+}
+
+export function loadPrivacyPolicy() {
+  return loadQuery<PrivacyPolicyPayload | null>(privacyPolicyQuery, {}, {next: {tags: ['web.privacyPolicy']}})
+}
+
+export function loadTermsAndConditions() {
+  return loadQuery<TermsAndConditionsPayload | null>(termsAndConditionsQuery, {}, {next: {tags: ['web.termsAndConditions']}})
 }
