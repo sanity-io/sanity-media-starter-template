@@ -3,6 +3,7 @@ import type {Image} from 'sanity'
 
 export type HomePagePayload = Omit<ArticlePayload, 'content' | 'quip' | 'tags'>[]
 
+type AccessLevel = 'auto' | 'premium' | 'public'
 type Author = {
   _id: string
   name: string
@@ -18,7 +19,7 @@ export type ArticlePayload = {
   publishDate: string
   authors: Author[]
   _id: string
-  accessLevel: 'auto' | 'premium' | 'public'
+  accessLevel: AccessLevel
   content: PortableTextBlock[]
   coverImage: Image
   headline: string
@@ -41,9 +42,24 @@ export type ArticlePayload = {
   >[]
 }
 
+export type TagPayload = {
+  _id: string
+  name: string
+  slug: string
+  articles: {
+    _id: string
+    slug: string
+    coverImage: Image
+    headline: string
+    subHeadline: string
+    accessLevel: AccessLevel
+  }[]
+}
+
 export type TopTagsPayload = {
   _id: string
   name: string
+  slug: string
   referenceCount: number
 }[]
 

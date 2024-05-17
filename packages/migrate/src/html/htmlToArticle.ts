@@ -35,11 +35,15 @@ export const parseArticleContent = async ({
   const rawTags = JSONSchema?.keywords ?? doc.querySelector(process.env.SELECTOR_TAGS)?.content
   const tags: Tag[] =
     typeof rawTags === 'string'
-      ? rawTags.split(',').map((tag) => ({
+      ? rawTags.split(',').map((tag) => {
+        const slugifiedTag = tag.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        return {
           _type: 'tag',
-          _id: `tag_${sanitizeId(tag.trim())}`,
+          _id: `tag_${sanitizeId(slugifiedTag)}`,
           name: tag.trim(),
-        }))
+          slug: {current: slugifiedTag},
+        }
+      })
       : []
 
   const authors: Author[] = []

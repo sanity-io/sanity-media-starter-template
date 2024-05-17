@@ -6,6 +6,7 @@ import {client} from '@/sanity/lib/client'
 import {
   articlesBySlugQuery, 
   homePageQuery,
+  tagWithArticlesQuery,
   topTagsQuery,
   privacyPolicyQuery,
   termsAndConditionsQuery,
@@ -16,6 +17,7 @@ import {
   ArticlePayload, 
   HomePagePayload, 
   TopTagsPayload,
+  TagPayload,
   PrivacyPolicyPayload,
   TermsAndConditionsPayload,
   GlobalNavigationPayload
@@ -76,6 +78,14 @@ export function loadArticle(slug: string) {
     articlesBySlugQuery,
     {slug},
     {next: {tags: [`article:${slug}`]}},
+  )
+}
+
+export function loadTagWithArticles(slug: string) {
+  return loadQuery<TagPayload | null>(
+    tagWithArticlesQuery,
+    {slug},
+    {next: {tags: ['article', 'tag']}},
   )
 }
 

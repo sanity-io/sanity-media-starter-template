@@ -28,7 +28,8 @@ export const initDb = (db: Database) => {
     `
     CREATE TABLE IF NOT EXISTS tags (
       id TEXT PRIMARY KEY,
-      name TEXT NOT NULL
+      name TEXT NOT NULL,
+      slug TEXT NOT NULL
     )
   `,
   )

@@ -62,7 +62,7 @@ export const trackArticleRead = async ({
   // Track the tags of the articles the user has read
   const readTags = JSON.parse(c.get('readTags')?.value ?? '{}')
 
-  tags.map(({_id, name}) => {
+  tags?.map(({_id, name}) => {
     if (readTags[name]) {
       readTags[name]++
     } else {
