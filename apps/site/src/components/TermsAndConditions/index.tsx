@@ -9,7 +9,9 @@ export const TermsAndConditions = ({data}: {data: TermsAndConditionsPayload}) =>
         <div className='text-4xl font-bold'>Terms and Conditions</div>
         <div className='text-md'>Effective {effectiveDate}</div>
       </div>
-      <CustomPortableText isMember={false} value={content ?? []} />
+      <main className='prose'>
+        <CustomPortableText value={content ?? []} />
+      </main>
     </div>
   )
 }

@@ -10,9 +10,9 @@ const customComponents = (isMember: boolean): Partial<PortableTextReactComponent
 })
 
 type Props = React.ComponentProps<typeof PortableText> & {
-  isMember: boolean
+  isMember?: boolean
 }
 
-export const CustomPortableText = ({isMember, ...props}: Props) => {
+export const CustomPortableText = ({isMember = false, ...props}: Props) => {
   return <PortableText {...props} components={customComponents(isMember)} />
 }
