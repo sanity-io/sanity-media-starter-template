@@ -23,7 +23,16 @@ const ReferencedBy = (props: {documentId: string}) => {
             return <div>Looking for referring documents...</div>
           }
 
-          if (!referringDocuments.length) return <div>No documents found</div>
+          if (!referringDocuments.length)
+            return (
+              <div
+                style={{
+                  padding: '16px 32px',
+                }}
+              >
+                <h2>No documents found</h2>
+              </div>
+            )
 
           return (
             <div
