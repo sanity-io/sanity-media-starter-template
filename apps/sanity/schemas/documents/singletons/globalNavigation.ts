@@ -1,6 +1,5 @@
-import { defineType, defineField } from 'sanity';
-import { basePortableTextFields } from '../../fields';
 import { MdNavigation } from "react-icons/md";
+import { defineField, defineType } from 'sanity';
 
 export default defineType({
   title: 'Global Navigation',

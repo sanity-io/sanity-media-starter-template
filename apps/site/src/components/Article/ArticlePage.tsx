@@ -18,7 +18,7 @@ export const Article = ({data, encodeDataAttribute, isTruncated, isMember}: Page
 
   return (
     <>
-      <article className="prose font-serif mx-auto px-4 md:0 py-5">
+      <article className="prose dark:prose-invert font-serif mx-auto px-4 md:0 py-5">
         <h1
           className="font-title font-bold text-5xl"
           data-sanity={encodeDataAttribute?.('headline') ?? 'test'}
