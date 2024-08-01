@@ -25,6 +25,7 @@
     "apps/*"
   ],
   "devDependencies": {
-    "husky": "^9.0.11"
+    "husky": "^9.0.11",
+    "turbo": "^1.0.0"
   }
 }
